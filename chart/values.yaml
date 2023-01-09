@@ -1,18 +1,18 @@
-name: web-conveior
-namespace: web-conveior
+name: web-test
+namespace: web-test
 type: Deployment
 tolerationValues:
   - web
 
 pods:
-  - name: web-conveior
-    repo: registry.hub.docker.com/lukaspastva/conveior-web:0.1.44
+  - name: web-test
+    repo: registry.hub.docker.com/lukaspastva/test-web:0.1.44
     resources: 100
     ports:
       - name: http
         port: 8000
         domains:
-          - "conveior.io"
-          - "www.conveior.io"
+          - "test.io"
+          - "www.test.io"
         paths:
           - "/"
