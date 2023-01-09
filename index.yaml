@@ -4,7 +4,7 @@ entries:
     - annotations:
         category: DeveloperTools
       apiVersion: v2
-      appVersion: 0.1.10
+      appVersion: helm-chartie-0.1.10
       created: "2023-01-09T14:59:25.345121293Z"
       description: simple deployments
       home: https://github.com/lukas-pastva/helm-chartie
@@ -18,5 +18,5 @@ entries:
       name:  helm-chartie
       type: application
       urls:
-        - https://github.com/lukas-pastva/helm-chartie/archive/refs/tags/0.1.10.tar.gz
-      version: 0.1.10
+        - https://github.com/lukas-pastva/helm-chartie/releases/download/helm-chartie-0.1.10/helm-chartie-0.1.10.tgz
+      version: helm-chartie-0.1.10
