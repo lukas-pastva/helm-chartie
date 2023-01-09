@@ -1,6 +1,18 @@
-# Default values for helm-chartie.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+name: web-conveior
+namespace: web-conveior
+type: Deployment
+tolerationValues:
+  - web
 
-nameOverride: ""
-fullnameOverride: ""
+pods:
+  - name: web-conveior
+    repo: registry.hub.docker.com/lukaspastva/conveior-web:0.1.44
+    resources: 100
+    ports:
+      - name: http
+        port: 8000
+        domains:
+          - "conveior.io"
+          - "www.conveior.io"
+        paths:
+          - "/"
