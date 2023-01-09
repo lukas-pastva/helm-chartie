@@ -12,7 +12,7 @@ pods:
       - name: http
         port: 80
         domains:
-          - "test.io"
-          - "www.test.io"
+          - "test.sk"
+          - "www.test.sk"
         paths:
           - "/"
