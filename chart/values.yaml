@@ -10,7 +10,7 @@ pods:
     resources: 100
     ports:
       - name: http
-        port: 8000
+        port: 80
         domains:
           - "test.io"
           - "www.test.io"
