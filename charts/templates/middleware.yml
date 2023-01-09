@@ -1,0 +1,23 @@
+{{- range $item := .Values.pods }}
+  {{- range $itemPorts := $item.ports }}
+    {{- if $itemPorts.domains }}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ $item.name }}-{{ $itemPorts.name }}
+  namespace: {{ $.Values.namespace }}
+spec:
+      {{ if $item.oauth2 }}
+  forwardAuth:
+    address: http://{{ $item.name }}-oauth2.{{ $.Values.namespace }}.svc.cluster.local:4181
+    trustForwardHeader: true
+    authResponseHeaders:
+      - X-Forwarded-User
+      {{ else }}
+  basicAuth:
+    secret: secret-{{ $item.name }}-{{ $itemPorts.name }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{- end }}

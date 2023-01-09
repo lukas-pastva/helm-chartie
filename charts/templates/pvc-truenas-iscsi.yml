@@ -1,0 +1,22 @@
+{{- range $item := .Values.pods }}
+{{- range $itemVolumes := $item.volumes }}
+{{ if eq $itemVolumes.type "iscsi" }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ $itemVolumes.name }}
+  labels:
+    app.kubernetes.io/name: {{ $itemVolumes.name }}
+  annotations:
+    volume.beta.kubernetes.io/storage-class: "freenas-iscsi-csi"
+spec:
+  storageClassName: freenas-iscsi-csi
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+{{- end }}
+{{- end }}
+{{- end }}

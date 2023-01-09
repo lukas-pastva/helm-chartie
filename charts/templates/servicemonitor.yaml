@@ -1,0 +1,22 @@
+{{- range $item := .Values.pods }}
+{{- if $item.serviceMonitorEnabled }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ $item.name }}
+  namespace: {{ $.Values.namespace }}
+spec:
+  endpoints:
+    - path: /metrics
+      port: http
+      scheme: http
+      interval: 60s
+  namespaceSelector:
+    matchNames:
+      - {{ $.Values.namespace }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ $item.name }}
+{{- end }}
+{{- end }}
