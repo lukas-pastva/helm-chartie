@@ -6,7 +6,7 @@ tolerationValues:
 
 pods:
   - name: web-test
-    repo: registry.hub.docker.com/lukaspastva/test-web:0.1.94
+    repo: registry.hub.docker.com/lukaspastva/test-web:0.1.44
     resources: 80
     ports:
       - name: http
