@@ -1,0 +1,22 @@
+apiVersion: v1
+entries:
+  helm-chartie:
+    - annotations:
+        category: DeveloperTools
+      apiVersion: v2
+      appVersion: 0.1.4
+      created: "2023-01-09T14:59:25.345121293Z"
+      description: simple deployments
+      home: https://github.com/lukas-pastva/helm-chartie
+      keywords:
+        - helm-chartie
+        - helm-chart
+      kubeVersion: '>=1.16.0-0'
+      maintainers:
+        - name: lukas-pastva
+          url: https://lukaspastva.com
+      name:  helm-chartie
+      type: application
+      urls:
+        - https://github.com/lukas-pastva/helm-chartie/archive/refs/tags/0.1.4.tar.gz
+      version: 0.1.4
