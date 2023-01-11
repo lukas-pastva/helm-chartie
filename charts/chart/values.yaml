@@ -1,8 +1,8 @@
 name: web-conveior
 namespace: web-conveior
 type: Deployment
-tolerationValues: {}
-#  - web
+tolerationValues:
+  - web
 #  - sys
 #  - sys-gitlab
 secretRegistry: "ZW1wdHk="
