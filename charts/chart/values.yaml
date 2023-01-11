@@ -1,18 +1,21 @@
-name: web-test
-namespace: web-test
+name: web-conveior
+namespace: web-conveior
 type: Deployment
-tolerationValues:
-  - web
+tolerationValues: {}
+#  - web
+#  - sys
+#  - sys-gitlab
+secretRegistry: "ZW1wdHk="
 
-pods:
-  - name: web-test
-    repo: registry.hub.docker.com/lukaspastva/test-web:0.1.44
-    resources: 80
-    ports:
-      - name: http
-        port: 80
-        domains:
-          - "test.sk"
-          - "www.test.sk"
-        paths:
-          - "/"
+pods: {}
+#  - name: web-test
+#    repo: registry.hub.docker.com/lukaspastva/conveior-web:0.1.44
+#    resources: 80
+#    ports:
+#      - name: http
+#        port: 80
+#        domains:
+#          - "conveior.io"
+#          - "www.conveior.iok"
+#        paths:
+#          - "/"
