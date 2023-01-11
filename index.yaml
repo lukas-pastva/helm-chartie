@@ -8,6 +8,6 @@ entries:
     digest: 4d9f2c32e9ce9c7cf4ba44cf40f5812c6b1e5cb8d389f9fe032a4bbe7e08a1fc
     name: helm-chartie
     urls:
-    - https://github.com/lukas-pastva/helm-chartie/helm-chartie-0.1.12.tgz
+    - https://lukas-pastva.github.io/helm-chartie/helm-chartie-0.1.12.tgz
     version: 0.1.12
 generated: "2023-01-11T21:19:54.126724+01:00"
