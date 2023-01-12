@@ -48,12 +48,12 @@ spec:
             - name: PROVIDERS_OIDC_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: "{{ $item.name }}-oauth2"
+                  name: "oauth2"
                   key: PROVIDERS_OIDC_CLIENT_SECRET
             - name: SECRET
               valueFrom:
                 secretKeyRef:
-                  name: "{{ $item.name }}-oauth2"
+                  name: "oauth2"
                   key: SECRET
             - name: DEFAULT_PROVIDER
               value: "oidc"
