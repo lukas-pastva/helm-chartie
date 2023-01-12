@@ -6,6 +6,8 @@ tolerationValues:
 #  - sys
 #  - sys-gitlab
 secretRegistry: "ZW1wdHk="
+#oauthClient: "ZW1wdHk="
+#oauthSecret: "ZW1wdHk="
 
 pods: {}
 #  - name: web-test
