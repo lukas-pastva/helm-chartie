@@ -9,9 +9,9 @@ metadata:
   labels:
     app.kubernetes.io/name: {{ $itemVolumes.name }}
   annotations:
-    volume.beta.kubernetes.io/storage-class: "freenas-nfs-csi"
+    volume.beta.kubernetes.io/storage-class: "sys-truenas-nfs"
 spec:
-  storageClassName: freenas-nfs-csi
+  storageClassName: sys-truenas-nfs
   accessModes:
     - ReadWriteOnce
   resources:
