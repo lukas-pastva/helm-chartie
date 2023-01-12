@@ -6,6 +6,10 @@ kind: ServiceMonitor
 metadata:
   name: {{ $item.name }}
   namespace: {{ $.Values.namespace }}
+  annotations: { }
+  labels:
+    app: {{ $item.name }}
+    release: sys-monitoring
 spec:
   endpoints:
     - path: /metrics
