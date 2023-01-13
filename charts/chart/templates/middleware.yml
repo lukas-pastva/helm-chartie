@@ -7,6 +7,8 @@ kind: Middleware
 metadata:
   name: {{ $item.name }}-{{ $itemPorts.name }}
   namespace: {{ $.Values.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
 spec:
       {{ if $item.oauth2 }}
   forwardAuth:

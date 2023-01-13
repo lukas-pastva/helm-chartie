@@ -11,6 +11,8 @@ metadata:
 {{- end }}
   name: {{ $item.name }}
   namespace: {{ $.Values.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
 spec:
   ports:
     - name: {{ $itemPort.name }}
@@ -31,6 +33,8 @@ metadata:
     app.kubernetes.io/name: {{ $item.name }}-oauth2
   name: {{ $item.name }}-oauth2
   namespace: {{ $.Values.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
 spec:
   ports:
     - name: http-oauth2

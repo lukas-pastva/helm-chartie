@@ -8,6 +8,8 @@ metadata:
   labels:
     app.kubernetes.io/name: {{ $item.name }}
   namespace: {{ $.Values.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
 spec:
   minAvailable: 1
   selector:

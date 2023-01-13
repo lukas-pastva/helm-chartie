@@ -7,6 +7,8 @@ kind: IngressRoute
 metadata:
   name: {{ $item.name }}
   namespace: {{ $.Values.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
 spec:
   entryPoints:
     - websecure
@@ -31,6 +33,8 @@ kind: Secret
 metadata:
   name: secret-{{ $item.name }}-{{ $itemPorts.name }}
   namespace: {{ $.Values.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
 data:
   users: {{ $itemPorts.auth }}
         {{- end }}

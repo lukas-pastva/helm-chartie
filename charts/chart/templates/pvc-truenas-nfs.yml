@@ -10,6 +10,7 @@ metadata:
     app.kubernetes.io/name: {{ $itemVolumes.name }}
   annotations:
     volume.beta.kubernetes.io/storage-class: "sys-truenas-nfs"
+    argocd.argoproj.io/sync-wave: "4"
 spec:
   storageClassName: sys-truenas-nfs
   accessModes:
