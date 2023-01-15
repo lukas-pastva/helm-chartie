@@ -1,6 +1,6 @@
 {{- range $item := .Values.pods }}
 {{- range $itemVolumes := $item.volumes }}
-{{ if eq $itemVolumes.type "vultr-hdd" }}
+{{ if eq $itemVolumes.type "vultr" }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -9,7 +9,7 @@ metadata:
   labels:
     app.kubernetes.io/name: {{ $itemVolumes.name }}
   annotations:
-    volume.beta.kubernetes.io/storage-class: "vultr-block-storage-hdd"
+    volume.beta.kubernetes.io/storage-class: "vultr-block-storage"
     argocd.argoproj.io/sync-wave: "4"
 spec:
   storageClassName: vultr-block-storage-hdd
