@@ -3,7 +3,16 @@ entries:
   helm-chartie:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2023-01-15T14:58:43.259472+01:00"
+    created: "2023-01-15T15:00:37.629517+01:00"
+    description: simple deployments
+    digest: 7901b9a9d48614cd14322205555c28d11b7bdd182b0319ab236b3de971b43b4f
+    name: helm-chartie
+    urls:
+    - https://lukas-pastva.github.io/helm-chartie/helm-chartie-0.1.28.tgz
+    version: 0.1.28
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2023-01-15T15:00:37.629259+01:00"
     description: simple deployments
     digest: d385d7bb605e31938e3e905e71a8f700989edbe6e6548c462abed5fb57352c7e
     name: helm-chartie
@@ -12,7 +21,7 @@ entries:
     version: 0.1.27
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2023-01-15T14:58:43.258645+01:00"
+    created: "2023-01-15T15:00:37.628972+01:00"
     description: simple deployments
     digest: a6af5b6e4df7205b202e0b739d2718c5d97a18c8b19c65e4c132c9bd1112b5de
     name: helm-chartie
@@ -21,11 +30,11 @@ entries:
     version: 0.1.26
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2023-01-15T14:58:43.258343+01:00"
+    created: "2023-01-15T15:00:37.628523+01:00"
     description: simple deployments
     digest: 529cc9bceca4c92cd6e54ca401409e5fe266df3f325bf44c538967811a7cc20b
     name: helm-chartie
     urls:
     - https://lukas-pastva.github.io/helm-chartie/helm-chartie-0.1.25.tgz
     version: 0.1.25
-generated: "2023-01-15T14:58:43.25786+01:00"
+generated: "2023-01-15T15:00:37.627374+01:00"
