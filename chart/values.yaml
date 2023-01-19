@@ -23,9 +23,8 @@ pods: {}
 #          - "www.conveior.iok"
 #        paths:
 #          - "/"
-#configMaps:
-#  - name: conveior-config
-#    data: |
-#      data: |-
-#        key: value
-#        key2: value2
+configMaps:
+  - name: conveior-config
+    data: |
+      key: value
+      key2: value2
