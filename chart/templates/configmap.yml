@@ -7,5 +7,5 @@ metadata:
   namespace: {{ $.Values.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "4"
-{{- $configMap.data | toYaml | nindent 0 }}
+data: {{- $configMap.data | toYaml | nindent 2 }}
 {{- end }}
