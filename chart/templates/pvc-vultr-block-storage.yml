@@ -12,12 +12,12 @@ metadata:
     volume.beta.kubernetes.io/storage-class: "vultr-block-storage"
     argocd.argoproj.io/sync-wave: "4"
 spec:
-  storageClassName: vultr-block-storage-hdd
+  storageClassName: vultr-block-storage
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 40Gi
 {{- end }}
 {{- end }}
 {{- end }}
