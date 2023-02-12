@@ -80,10 +80,10 @@ spec:
         - name: {{ $item.name }}
           image: "{{ $item.repo }}"
           imagePullPolicy: "Always"
-          {{- if $item.annotations }}
-          annotations:
-          {{- $item.annotations | toYaml | nindent 12 }}
-          {{- end }}
+{{/*          {{- if $item.annotations }}*/}}
+{{/*          annotations:*/}}
+{{/*          {{- $item.annotations | toYaml | nindent 12 }}*/}}
+{{/*          {{- end }}*/}}
           {{- if $item.ports }}
           ports:
           {{- range $itemPort := $item.ports }}
