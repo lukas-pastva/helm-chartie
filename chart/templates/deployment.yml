@@ -9,6 +9,9 @@ metadata:
   namespace: {{ $.Values.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "4"
+{{- if $item.annotations -}}
+{{ $item.annotations | toYaml | nindent 4 }}
+{{- end }}
 spec:
   {{ if eq $.Values.type "Deployment" }}replicas: {{ $item.replicaCount | default 1 }}{{- end }}
   revisionHistoryLimit: 1
