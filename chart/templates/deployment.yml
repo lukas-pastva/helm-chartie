@@ -85,6 +85,10 @@ spec:
         {{- end }}
         - name: {{ $item.name }}
           image: "{{ $item.repo }}"
+        {{- if $item.privileged }}
+          securityContext:
+            privileged: true
+        {{- end }}
           imagePullPolicy: "Always"
 {{/*          {{- if $item.annotations }}*/}}
 {{/*          annotations:*/}}
