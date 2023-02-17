@@ -15,6 +15,8 @@ pods: {}
 #  - name: web-test
 #    repo: registry.hub.docker.com/lukaspastva/conveior-web:0.1.44
 #    resources: 80
+#    replicaCount: 1
+#    privileged: false
 #    annotations:
 #      checksum: {{ include (print $.Template.BasePath "/cm-application.yml") . | sha256sum }}
 #    ports:

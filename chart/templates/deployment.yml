@@ -26,6 +26,12 @@ spec:
       {{- if $.Values.nodeName }}
       nodeName: {{ $.Values.nodeName | quote }}
       {{- end }}
+      {{- if $item.privileged }}
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+      {{- end }}
       tolerations:
       {{- range $toleration := $.Values.tolerationValues }}
       - key: "app-type"
