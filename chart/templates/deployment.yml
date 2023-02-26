@@ -23,7 +23,7 @@ spec:
       labels:
         app.kubernetes.io/name: {{ $item.name }}
         {{- if $item.annotations -}}
-        {{ $item.annotations | toYaml | nindent 8 }}
+        {{ $item.annotations | toYaml | trunc 63 | nindent 8 }}
         {{- end }}
     spec:
       {{- if $.Values.nodeName }}
