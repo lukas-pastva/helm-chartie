@@ -22,6 +22,9 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: {{ $item.name }}
+        {{- if $item.annotations -}}
+        {{ $item.annotations | toYaml | nindent 8 }}
+        {{- end }}
     spec:
       {{- if $.Values.nodeName }}
       nodeName: {{ $.Values.nodeName | quote }}

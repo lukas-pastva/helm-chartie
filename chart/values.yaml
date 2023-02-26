@@ -6,6 +6,7 @@ tolerationValues:
 #  - sys
 #  - sys-gitlab
 istioEnabled: false
+knativeServingEnabled: false
 #secretRegistry: "ZW1wdHk="
 #oauthClient: "ZW1wdHk="
 #oauthSecret: "ZW1wdHk="
