@@ -18,7 +18,7 @@ pods: {}
 #    resources: 80
 #    replicaCount: 1
 #    privileged: false
-#    annotations:
+#    labels:
 #      checksum: {{ include (print $.Template.BasePath "/cm-application.yml") . | sha256sum }}
 #    ports:
 #      - name: http

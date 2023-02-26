@@ -9,9 +9,6 @@ metadata:
   namespace: {{ $.Values.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "4"
-{{- if $item.annotations -}}
-{{ $item.annotations | toYaml | nindent 4 }}
-{{- end }}
 spec:
   {{ if eq $.Values.type "Deployment" }}replicas: {{ $item.replicaCount | default 1 }}{{- end }}
   revisionHistoryLimit: 1
@@ -22,8 +19,8 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: {{ $item.name }}
-        {{- if $item.annotations -}}
-        {{ $item.annotations | toYaml | trunc 63 | nindent 8 }}
+        {{- if $item.labels -}}
+        {{ $item.labels | toYaml | trunc 63 | nindent 8 }}
         {{- end }}
     spec:
       {{- if $.Values.nodeName }}
@@ -93,10 +90,6 @@ spec:
             privileged: true
         {{- end }}
           imagePullPolicy: "Always"
-{{/*          {{- if $item.annotations }}*/}}
-{{/*          annotations:*/}}
-{{/*          {{- $item.annotations | toYaml | nindent 12 }}*/}}
-{{/*          {{- end }}*/}}
           {{- if $item.ports }}
           ports:
           {{- range $itemPort := $item.ports }}
