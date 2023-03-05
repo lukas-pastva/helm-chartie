@@ -128,23 +128,8 @@ spec:
             successThreshold: 1
             failureThreshold: 3
           {{- end -}}
-          {{- if or ($item.env) ($item.mailServerEnabled) ($item.mysqlEnvsEnabled) }}
-          env:
-          {{- if $item.mailServerEnabled }}
-            - name: MAIL_FROM
-              value: "webmail@tronic.sk"
-            - name: MAIL_SMTP
-              value: "ssl://mail.tronic.sk"
-            - name: MAIL_PORT
-              value: "465"
-            - name: MAIL_USER
-              value: "webmail@tronic.sk"
-            - name: MAIL_PASS
-              value: "Y7(|/W.l<'<i"
-            - name: MAIL_TO
-              value: {{ $item.mailServerEnabled }}
-          {{- end }}
           {{- if $item.mysqlEnvsEnabled }}
+          env:
             - name: MYSQL_HOST
               valueFrom:
                 secretKeyRef:
@@ -170,7 +155,6 @@ spec:
                 secretKeyRef:
                   name: secrets-sql
                   key: MYSQL_ROOT_PASSWORD
-          {{- end }}
           {{- if $item.env }}
           {{- $item.env | toYaml | nindent 12 }}
           {{- end }}
