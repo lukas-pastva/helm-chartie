@@ -128,8 +128,9 @@ spec:
             successThreshold: 1
             failureThreshold: 3
           {{- end -}}
-          {{- if $item.mysqlEnvsEnabled }}
+          {{- if or ($item.env) ($item.mysqlEnvsEnabled) -}}
           env:
+          {{- if $item.mysqlEnvsEnabled }}
             - name: MYSQL_HOST
               valueFrom:
                 secretKeyRef:
@@ -155,6 +156,7 @@ spec:
                 secretKeyRef:
                   name: secrets-sql
                   key: MYSQL_ROOT_PASSWORD
+          {{- end }}
           {{- if $item.env }}
           {{- $item.env | toYaml | nindent 12 }}
           {{- end }}
