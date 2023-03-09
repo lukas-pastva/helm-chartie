@@ -32,6 +32,7 @@ spec:
         runAsGroup: 0
         fsGroup: 0
       {{- end }}
+      {{ if $.Values.tolerationValues }}
       tolerations:
       {{- range $toleration := $.Values.tolerationValues }}
       - key: "app-type"
@@ -39,6 +40,22 @@ spec:
         value: {{ $toleration }}
         effect: "NoExecute"
         tolerationSeconds: 3600
+      {{- end }}
+      {{- end }}
+      {{ if $.Values.nodeAffinity }}
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+              {{- range $affinity := $.Values.nodeAffinity }}
+                - key: {{ $affinity.key }}
+                  operator: In
+                  values:
+                  {{- range $affinityValue := $affinity.values }}
+                    - {{ $affinityValue }}
+                  {{- end }}
+              {{- end }}
       {{- end }}
       containers:
         {{- if $item.oauth2 }}

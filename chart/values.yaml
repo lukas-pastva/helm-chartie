@@ -1,10 +1,12 @@
-name: web-conveior
 namespace: web-conveior
 type: Deployment
-tolerationValues:
-  - web
-#  - sys
-#  - sys-gitlab
+#tolerationValues:
+#  - web
+#nodeAffinity:
+#  - key: asdf
+#    values:
+#      - asdf
+#      - fdsa
 istioEnabled: false
 knativeServingEnabled: false
 #secretRegistry: "ZW1wdHk="
