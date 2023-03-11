@@ -1,6 +1,6 @@
 namespace: web-conveior
 type: Deployment
-#tolerationValues:
+#tolerations:
 #  - web
 #nodeAffinity:
 #  - key: asdf

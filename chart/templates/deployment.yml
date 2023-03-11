@@ -32,9 +32,9 @@ spec:
         runAsGroup: 0
         fsGroup: 0
       {{- end }}
-      {{ if $.Values.tolerationValues }}
+      {{ if $.Values.tolerations }}
       tolerations:
-      {{- range $toleration := $.Values.tolerationValues }}
+      {{- range $toleration := $.Values.tolerations }}
       - key: "app-type"
         operator: "Equal"
         value: {{ $toleration }}
