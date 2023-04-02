@@ -221,6 +221,13 @@ spec:
           configMap:
             name: {{ $itemVolumes.name }}
         {{- end }}
+        {{ if eq $itemVolumes.type "secret" }}
+          secret:
+            secretName: {{ $itemVolumes.name }}
+            items:
+              - key: {{ $itemVolumes.subPath }}
+                path: {{ $itemVolumes.mountPath }}
+        {{- end }}
       {{- end }}
       imagePullSecrets:
         - name: secrets-registry

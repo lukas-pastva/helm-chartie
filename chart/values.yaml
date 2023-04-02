@@ -8,7 +8,6 @@ type: Deployment
 #      - asdf
 #      - fdsa
 istioEnabled: false
-knativeServingEnabled: false
 #secretRegistry: "ZW1wdHk="
 #oauthClient: "ZW1wdHk="
 #oauthSecret: "ZW1wdHk="
