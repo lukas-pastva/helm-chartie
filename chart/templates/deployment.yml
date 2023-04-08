@@ -107,6 +107,12 @@ spec:
             privileged: true
         {{- end }}
           imagePullPolicy: "Always"
+          {{- if $item.command }}
+            command:
+            {{- range $item.command }}
+             - {{ . }}
+            {{- end }}
+          {{- end }}
           {{- if $item.ports }}
           ports:
           {{- range $itemPort := $item.ports }}

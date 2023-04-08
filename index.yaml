@@ -3,7 +3,16 @@ entries:
   helm-chartie:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2023-04-02T21:36:00.728379+02:00"
+    created: "2023-04-08T08:26:11.255204+02:00"
+    description: simple deployments
+    digest: a26d2730a4259f59b46ad0227c84f2a4af903120e529aed5b4b80e50f444e8e3
+    name: helm-chartie
+    urls:
+    - https://lukas-pastva.github.io/helm-chartie/helm-chartie-0.1.54.tgz
+    version: 0.1.54
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2023-04-08T08:26:11.254958+02:00"
     description: simple deployments
     digest: 29b9e73b77fa883f41bd355e4e1b501a6a5c85d04874ac7a9b86a50c39578b12
     name: helm-chartie
@@ -12,7 +21,7 @@ entries:
     version: 0.1.53
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2023-04-02T21:36:00.728114+02:00"
+    created: "2023-04-08T08:26:11.254709+02:00"
     description: simple deployments
     digest: a249d8e6515b482ac00736264c81947e87868c2737701e759bdd37c6fd7eefeb
     name: helm-chartie
@@ -21,7 +30,7 @@ entries:
     version: 0.1.52
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2023-04-02T21:36:00.727866+02:00"
+    created: "2023-04-08T08:26:11.254452+02:00"
     description: simple deployments
     digest: abef817da11ab42c9db53f121618d5baff44203ada2404e9ee2aebf7b25b5e35
     name: helm-chartie
@@ -30,7 +39,7 @@ entries:
     version: 0.1.51
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2023-04-02T21:36:00.727606+02:00"
+    created: "2023-04-08T08:26:11.254084+02:00"
     description: simple deployments
     digest: dfde2effda3a72da631adc6b4636f2bffd9df46f9f35ea17996d1cd9bc3c335d
     name: helm-chartie
@@ -39,7 +48,7 @@ entries:
     version: 0.1.50
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2023-04-02T21:36:00.727318+02:00"
+    created: "2023-04-08T08:26:11.252763+02:00"
     description: simple deployments
     digest: 2018a8e82499752e38b9097a40e5ea50daa4c4b2a5836b770f72e588f478309d
     name: helm-chartie
@@ -262,4 +271,4 @@ entries:
     urls:
     - https://lukas-pastva.github.io/helm-chartie/helm-chartie-0.1.25.tgz
     version: 0.1.25
-generated: "2023-04-02T21:36:00.725952+02:00"
+generated: "2023-04-08T08:26:11.252134+02:00"
