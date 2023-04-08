@@ -118,6 +118,9 @@ spec:
           {{- range $itemPort := $item.ports }}
             - name: {{ $itemPort.name }}
               containerPort: {{ $itemPort.port }}
+              {{- if $itemPort.hostPort }}
+              hostPort: {{ $itemPort.hostPort }}
+              {{- end }}
               protocol: TCP
           {{- end }}
           {{- end }}
