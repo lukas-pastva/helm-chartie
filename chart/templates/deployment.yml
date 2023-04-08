@@ -108,7 +108,7 @@ spec:
         {{- end }}
           imagePullPolicy: "Always"
           {{- if $item.command }}
-            command:
+          command:
             {{- range $item.command }}
              - {{ . }}
             {{- end }}
