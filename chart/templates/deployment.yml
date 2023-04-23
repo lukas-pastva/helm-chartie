@@ -188,7 +188,7 @@ spec:
           {{- end }}
           {{- end }}
           {{- if $item.args }}
-          args: {{ $item.args }}
+          args: {{ $item.args | toYaml | nindent 12 }}
           {{- end }}
     {{- if $item.volumes }}
           volumeMounts:
