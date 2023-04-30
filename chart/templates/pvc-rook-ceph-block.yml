@@ -1,6 +1,6 @@
 {{- range $item := .Values.pods }}
 {{- range $itemVolumes := $item.volumes }}
-{{ if eq $itemVolumes.type "rook-cephfs" }}
+{{ if eq $itemVolumes.type "rook-ceph-block" }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -9,14 +9,14 @@ metadata:
   labels:
     app.kubernetes.io/name: {{ $itemVolumes.name }}
   annotations:
-    volume.beta.kubernetes.io/storage-class: "rook-cephfs"
+    volume.beta.kubernetes.io/storage-class: "rook-ceph-block"
     argocd.argoproj.io/sync-wave: "4"
   finalizers:
     - kubernetes.io/pvc-protection
 spec:
-  storageClassName: rook-cephfs
+  storageClassName: rook-ceph-block
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
