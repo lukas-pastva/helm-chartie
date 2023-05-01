@@ -229,6 +229,7 @@ spec:
         {{ if eq $itemVolumes.type "rook-cephfs" }}
           persistentVolumeClaim:
             claimName: {{ $itemVolumes.name }}
+            readOnly: {{ $itemVolumes.readOnly }}
         {{- end }}
         {{ if eq $itemVolumes.type "ConfigMap" }}
           configMap:
