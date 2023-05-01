@@ -1,7 +1,7 @@
 {{- range $item := .Values.pods }}
 {{- range $itemVolumes := $item.volumes }}
 {{ if eq $itemVolumes.type "rook-cephfs" }}
-{{ if ne $itemVolumes.readOnly }}
+{{ if not $itemVolumes.readOnly }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
