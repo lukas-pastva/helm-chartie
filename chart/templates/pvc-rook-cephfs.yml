@@ -1,6 +1,7 @@
 {{- range $item := .Values.pods }}
 {{- range $itemVolumes := $item.volumes }}
 {{ if eq $itemVolumes.type "rook-cephfs" }}
+{{ if ne $itemVolumes.readOnly }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -22,6 +23,7 @@ spec:
       storage: 1Gi
 {{/*  volumeName: pvc-a02dd277-cb26-4c1e-9434-478ebc321e22-newnamespace*/}}
   volumeMode: Filesystem
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
