@@ -14,7 +14,7 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: {{ if $itemVolumes.size }}{{ if $itemVolumes.size }}{{ else }}1Gi{{ end }}
+      storage: {{ if $itemVolumes.size }}{{ $itemVolumes.size }}{{ else }}1Gi{{ end }}
   volumeMode: Filesystem
 {{- end }}
 {{- end }}
