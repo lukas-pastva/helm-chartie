@@ -17,7 +17,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 10Gi
+      storage: {{ if $itemVolumes.size }}{{ if $itemVolumes.size }}{{ else }}10Gi{{ end }}
 {{- end }}
 {{- end }}
 {{- end }}

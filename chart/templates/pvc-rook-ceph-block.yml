@@ -19,9 +19,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
-{{/*  volumeName: pvc-a02dd277-cb26-4c1e-9434-478ebc321e22-newnamespace*/}}
-{{/*  volumeMode: Filesystem*/}}
+      storage: {{ if $itemVolumes.size }}{{ if $itemVolumes.size }}{{ else }}1Gi{{ end }}
 {{- end }}
 {{- end }}
 {{- end }}
