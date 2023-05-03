@@ -106,6 +106,9 @@ spec:
           securityContext:
             privileged: true
         {{- end }}
+        {{- if $item.securityContext }}
+          {{- $item.securityContext | toYaml | nindent 10 }}
+        {{- end }}
           imagePullPolicy: "Always"
           {{- if $item.command }}
           command:
