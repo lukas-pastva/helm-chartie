@@ -57,6 +57,10 @@ spec:
                   {{- end }}
               {{- end }}
       {{- end }}
+      {{- if $item.securityContext }}
+      securityContext:
+        {{- $item.securityContext | toYaml | nindent 8 }}
+      {{- end }}
       containers:
         {{- if $item.oauth2 }}
         - name: "{{ $item.name }}-oauth2"
@@ -106,9 +110,9 @@ spec:
           securityContext:
             privileged: true
         {{- end }}
-        {{- if $item.securityContext }}
+        {{- if $item.podSecurityContext }}
           securityContext:
-          {{- $item.securityContext | toYaml | nindent 12 }}
+          {{- $item.podSecurityContext | toYaml | nindent 12 }}
         {{- end }}
           imagePullPolicy: "Always"
           {{- if $item.command }}
