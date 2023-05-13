@@ -1,5 +1,4 @@
 {{- range $item := .Values.pods }}
-  {{- range $itemPort := $item.ports }}
 ---
 apiVersion: v1
 kind: Service
@@ -15,16 +14,18 @@ metadata:
     argocd.argoproj.io/sync-wave: "4"
 spec:
   ports:
+  {{- range $itemPort := $item.ports }}
     - name: {{ $itemPort.name }}
       port: {{ $itemPort.port }}
       protocol: TCP
       targetPort: {{ $itemPort.port }}
+  {{- end }}
   selector:
     app.kubernetes.io/name: {{ $item.name }}
   type: ClusterIP
 status:
   loadBalancer: {}
-    {{- if $item.oauth2 }}
+  {{- if $item.oauth2 }}
 ---
 apiVersion: v1
 kind: Service
@@ -46,6 +47,5 @@ spec:
   type: ClusterIP
 status:
   loadBalancer: {}
-    {{- end }}
   {{- end }}
 {{- end }}
