@@ -132,14 +132,18 @@ spec:
               protocol: TCP
           {{- end }}
           {{- end }}
-          {{ if $item.resources -}}
+          {{ if $item.resourcesSimple -}}
           resources:
             limits:
-              cpu: {{ mulf $item.resources 1.5 }}m
-              memory: {{ mulf $item.resources 1.7 }}Mi
+              cpu: {{ mulf $item.resourcesSimple 1.5 }}m
+              memory: {{ mulf $item.resourcesSimple 1.7 }}Mi
             requests:
-              cpu: {{ $item.resources }}m
-              memory: {{ mulf $item.resources 1.2 }}Mi
+              cpu: {{ $item.resourcesSimple }}m
+              memory: {{ mulf $item.resourcesSimple 1.2 }}Mi
+          {{- end }}
+          {{ if $item.resources -}}
+          resources:
+            {{- $item.resources | toYaml | nindent 12 }}
           {{- end }}
           {{ if $item.probesEnabled -}}
           livenessProbe:
