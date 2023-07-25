@@ -14,7 +14,7 @@ istioEnabled: false
 
 
 pods: {}
-#  - name: web-test
+#  conveior:
 #    repo: registry.hub.docker.com/lukaspastva/conveior-web:0.1.44
 #    resourcesSimple: 80
 #    replicaCount: 1

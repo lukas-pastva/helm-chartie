@@ -1,11 +1,11 @@
-{{- range $item := .Values.pods }}
+{{- range $item_name, $item := .Values.pods }}
 ---
 apiVersion: apps/v1
 kind: {{ $.Values.type }}
 metadata:
-  name: {{ $item.name }}
+  name: {{ $item_name }}
   labels:
-    app.kubernetes.io/name: {{ $item.name }}
+    app.kubernetes.io/name: {{ $item_name }}
   namespace: {{ $.Values.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "4"
@@ -14,11 +14,11 @@ spec:
   revisionHistoryLimit: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ $item.name }}
+      app.kubernetes.io/name: {{ $item_name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ $item.name }}
+        app.kubernetes.io/name: {{ $item_name }}
         {{- if $item.labels -}}
         {{ $item.labels | toYaml | trunc 63 | nindent 8 }}
         {{- end }}
@@ -63,7 +63,7 @@ spec:
       {{- end }}
       containers:
         {{- if $item.oauth2 }}
-        - name: "{{ $item.name }}-oauth2"
+        - name: "{{ $item_name }}-oauth2"
           image: "registry.gitlab.com/tronic-sk/devops/sys-oauth2/web:51c07eee"
           resources:
             limits:
@@ -104,7 +104,7 @@ spec:
             - name: URL_PATH
               value: "/_oauth"
         {{- end }}
-        - name: {{ $item.name }}
+        - name: {{ $item_name }}
           image: "{{ $item.repo }}"
         {{- if $item.privileged }}
           securityContext:
