@@ -29,6 +29,11 @@ pods: {}
 #          - "www.conveior.iok"
 #        paths:
 #          - "/"
+#        serviceMonitorEnabled: true
+#        networkPolicy:
+#          enabled: true
+#          destinationNamespace: monitoring
+#          destinationPod: "kube-prometheus-stack-prometheus"
 #configMaps:
 #  - name: conveior-config
 #    data:
