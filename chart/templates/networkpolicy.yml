@@ -1,5 +1,5 @@
 {{- range $item_name, $item := .Values.pods }}
-{{ if eq $item.networkPolicy.enabled "true" }}
+{{ if $item.networkPolicy.enabled }}
 ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
