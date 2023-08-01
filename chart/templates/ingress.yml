@@ -31,7 +31,7 @@ spec:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: secret-  {{ $item_name }}-{{ $itemPorts.name }}
+  name: secret-{{ $item_name }}-{{ $itemPorts.name }}
   namespace: {{ $.Values.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "4"
