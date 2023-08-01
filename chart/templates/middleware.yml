@@ -5,20 +5,20 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name:  {{ $item_name | truncate 53 }}-{{ $itemPorts.name }}
+  name:   {{ $item_name }}-{{ $itemPorts.name }}
   namespace: {{ $.Values.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "4"
 spec:
       {{ if $item.oauth2 }}
   forwardAuth:
-    address: http:// {{ $item_name | truncate 53 }}-oauth2.{{ $.Values.namespace }}.svc.cluster.local:4181
+    address: http://  {{ $item_name }}-oauth2.{{ $.Values.namespace }}.svc.cluster.local:4181
     trustForwardHeader: true
     authResponseHeaders:
       - X-Forwarded-User
       {{ else }}
   basicAuth:
-    secret: secret- {{ $item_name | truncate 53 }}-{{ $itemPorts.name }}
+    secret: secret-  {{ $item_name }}-{{ $itemPorts.name }}
       {{- end }}
     {{- end }}
   {{- end }}
