@@ -6,11 +6,11 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app.kubernetes.io/name: {{ $item_name }}
+    app.kubernetes.io/name:  {{ $item_name | truncate 53 }}
 {{- if $item.serviceMonitorEnabled }}
     app.kubernetes.io/part-of: kube-prometheus
 {{- end }}
-  name: {{ $item_name }}
+  name:  {{ $item_name | truncate 53 }}
   namespace: {{ $.Values.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "4"
@@ -23,7 +23,7 @@ spec:
       targetPort: {{ $itemPort.port }}
   {{- end }}
   selector:
-    app.kubernetes.io/name: {{ $item_name }}
+    app.kubernetes.io/name:  {{ $item_name | truncate 53 }}
   type: ClusterIP
 status:
   loadBalancer: {}
@@ -35,8 +35,8 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app.kubernetes.io/name: {{ $item_name }}-oauth2
-  name: {{ $item_name }}-oauth2
+    app.kubernetes.io/name:  {{ $item_name | truncate 53 }}-oauth2
+  name:  {{ $item_name | truncate 53 }}-oauth2
   namespace: {{ $.Values.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "4"
@@ -47,7 +47,7 @@ spec:
       protocol: TCP
       targetPort: 4181
   selector:
-    app.kubernetes.io/name: {{ $item_name }}
+    app.kubernetes.io/name:  {{ $item_name | truncate 53 }}
   type: ClusterIP
 status:
   loadBalancer: {}

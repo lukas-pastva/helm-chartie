@@ -3,9 +3,9 @@
 apiVersion: apps/v1
 kind: {{ $.Values.type }}
 metadata:
-  name: {{ $item_name }}
+  name:  {{ $item_name | truncate 53 }}
   labels:
-    app.kubernetes.io/name: {{ $item_name }}
+    app.kubernetes.io/name:  {{ $item_name | truncate 53 }}
   namespace: {{ $.Values.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "4"
@@ -14,11 +14,11 @@ spec:
   revisionHistoryLimit: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ $item_name }}
+      app.kubernetes.io/name:  {{ $item_name | truncate 53 }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ $item_name }}
+        app.kubernetes.io/name:  {{ $item_name | truncate 53 }}
         {{- if $item.labels -}}
         {{ $item.labels | toYaml | trunc 63 | nindent 8 }}
         {{- end }}
@@ -63,7 +63,7 @@ spec:
       {{- end }}
       containers:
         {{- if $item.oauth2 }}
-        - name: "{{ $item_name }}-oauth2"
+        - name: " {{ $item_name | truncate 53 }}-oauth2"
           image: "registry.gitlab.com/tronic-sk/devops/sys-oauth2/web:51c07eee"
           resources:
             limits:
@@ -104,7 +104,7 @@ spec:
             - name: URL_PATH
               value: "/_oauth"
         {{- end }}
-        - name: {{ $item_name }}
+        - name:  {{ $item_name | truncate 53 }}
           image: "{{ $item.repo }}"
         {{- if $item.privileged }}
           securityContext:
