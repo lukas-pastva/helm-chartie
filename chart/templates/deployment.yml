@@ -63,7 +63,7 @@ spec:
       {{- end }}
       containers:
         {{- if $item.oauth2 }}
-        - name: "  {{ $item_name }}-oauth2"
+        - name: "{{ $item_name }}-oauth2"
           image: "registry.gitlab.com/tronic-sk/devops/sys-oauth2/web:51c07eee"
           resources:
             limits:

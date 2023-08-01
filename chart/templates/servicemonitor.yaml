@@ -9,7 +9,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "4"
   labels:
-    app:   {{ $item_name }}
+    app: {{ $item_name }}
     release: sys-monitoring
 spec:
   endpoints:

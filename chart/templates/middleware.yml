@@ -12,7 +12,7 @@ metadata:
 spec:
       {{ if $item.oauth2 }}
   forwardAuth:
-    address: http://  {{ $item_name }}-oauth2.{{ $.Values.namespace }}.svc.cluster.local:4181
+    address: http://{{ $item_name }}-oauth2.{{ $.Values.namespace }}.svc.cluster.local:4181
     trustForwardHeader: true
     authResponseHeaders:
       - X-Forwarded-User
