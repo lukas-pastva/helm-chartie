@@ -5,7 +5,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name:   {{ $item_name }}-{{ $itemPorts.name }}
+  name: {{ $item_name }}-{{ $itemPorts.name }}
   namespace: {{ $.Values.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "4"
