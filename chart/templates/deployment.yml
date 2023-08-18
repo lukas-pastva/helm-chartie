@@ -226,6 +226,10 @@ spec:
           hostPath:
             path: {{ $itemVolumes.hostPath | quote}}
         {{- end }}
+        {{ if eq $itemVolumes.type "rook-ceph-block" }}
+          persistentVolumeClaim:
+            claimName: {{ $itemVolumes.name }}
+        {{- end }}
         {{ if eq $itemVolumes.type "pvc" }}
           persistentVolumeClaim:
             claimName: {{ $itemVolumes.name }}
