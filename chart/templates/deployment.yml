@@ -230,6 +230,10 @@ spec:
           persistentVolumeClaim:
             claimName: {{ $itemVolumes.name }}
         {{- end }}
+        {{ if eq $itemVolumes.type "longhorn" }}
+          persistentVolumeClaim:
+            claimName: {{ $itemVolumes.name }}
+        {{- end }}
         {{ if eq $itemVolumes.type "pvc" }}
           persistentVolumeClaim:
             claimName: {{ $itemVolumes.name }}
