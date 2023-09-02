@@ -22,6 +22,10 @@ spec:
         {{- if $item.labels -}}
         {{ $item.labels | toYaml | trunc 63 | nindent 8 }}
         {{- end }}
+      annotations:
+        {{- if $item.annotations -}}
+        {{ $item.annotations | toYaml | nindent 8 }}
+        {{- end }}
     spec:
       {{- if $.Values.nodeName }}
       nodeName: {{ $.Values.nodeName | quote }}
