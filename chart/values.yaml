@@ -30,6 +30,7 @@ pods: {}
 #        paths:
 #          - "/"
 #        serviceMonitorEnabled: true
+#        serviceAccountEnabled: false
 #        networkPolicy:
 #          enabled: true
 #          destinationNamespace: monitoring

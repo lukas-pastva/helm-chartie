@@ -61,6 +61,9 @@ spec:
       securityContext:
         {{- $item.securityContext | toYaml | nindent 8 }}
       {{- end }}
+      {{- if $item.serviceAccountEnabled }}
+      serviceAccountName: {{ $item_name }}
+      {{- end }}
       containers:
         {{- if $item.oauth2 }}
         - name: "{{ $item_name }}-oauth2"
