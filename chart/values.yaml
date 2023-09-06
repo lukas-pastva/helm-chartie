@@ -41,7 +41,7 @@ pods: {}
 #          destinationNamespace: monitoring
 #          destinationPod: "kube-prometheus-stack-prometheus"
 #configMaps:
-#  - name: conveior-config
+#  - name: config
 #    data:
 #      key1: value1
 #      key2: value2
