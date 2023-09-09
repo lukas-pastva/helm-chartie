@@ -241,6 +241,7 @@ spec:
         {{ if eq $itemVolumes.type "csi-s3" }}
           persistentVolumeClaim:
             claimName: {{ $itemVolumes.name }}
+            readOnly: {{ $itemVolumes.readOnly | default false }}
         {{- end }}
         {{ if eq $itemVolumes.type "pvc" }}
           persistentVolumeClaim:
