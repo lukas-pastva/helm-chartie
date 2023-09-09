@@ -220,10 +220,6 @@ spec:
               subPath: {{ $itemVolumes.subPath }}
               {{- end }}
               {{- end }}
-        {{- if $itemVolumes.args }}
-          args:
-            - {{ $itemVolumes.args | quote }}
-        {{- end }}
       {{- end }}
     {{- end }}
       volumes:
