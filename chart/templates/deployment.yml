@@ -241,6 +241,10 @@ spec:
           persistentVolumeClaim:
             claimName: {{ $itemVolumes.name }}
         {{- end }}
+        {{ if eq $itemVolumes.type "csi-s3" }}
+          persistentVolumeClaim:
+            claimName: {{ $itemVolumes.name }}
+        {{- end }}
         {{ if eq $itemVolumes.type "pvc" }}
           persistentVolumeClaim:
             claimName: {{ $itemVolumes.name }}
