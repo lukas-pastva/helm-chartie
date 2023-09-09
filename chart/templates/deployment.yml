@@ -207,7 +207,8 @@ spec:
           {{- end }}
           {{- end }}
           {{- if $item.args }}
-          args: {{ $item.args | toYaml | nindent 12 }}
+          args:
+            - {{ $item.args | quote }}
           {{- end }}
     {{- if $item.volumes }}
           volumeMounts:
