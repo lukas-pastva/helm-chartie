@@ -2,9 +2,10 @@
 Check if a list contains a value
 */}}
 {{- define "listContains" -}}
-  {{- $value := .Get 1 -}}
+  {{- $value := .value -}}
+  {{- $list := .list -}}
   {{- $found := false -}}
-  {{- range .Get 0 -}}
+  {{- range $list -}}
     {{- if eq . $value -}}
       {{- $found = true -}}
     {{- end -}}

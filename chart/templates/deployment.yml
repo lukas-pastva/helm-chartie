@@ -230,7 +230,7 @@ spec:
           hostPath:
             path: {{ $itemVolumes.hostPath | quote}}
         {{- end }}
-        {{- if include "listContains" (list "rook-cephfs" "csi-s3" "iscsi" "rook-ceph-block" "longhorn" "pvc" "nfs" "openebs-device" "openebs-hostpath") $itemVolumes.type }}
+        {{- if eq (include "listContains" (dict "list" (list "rook-cephfs" "csi-s3" "iscsi" "rook-ceph-block" "longhorn" "pvc" "nfs" "openebs-device" "openebs-hostpath") "value" $itemVolumes.type)) "true" }}
           persistentVolumeClaim:
             claimName: {{ $itemVolumes.name }}
             readOnly: {{ $itemVolumes.readOnly | default false }}
