@@ -230,35 +230,10 @@ spec:
           hostPath:
             path: {{ $itemVolumes.hostPath | quote}}
         {{- end }}
-        {{ if eq $itemVolumes.type "rook-ceph-block" }}
-          persistentVolumeClaim:
-            claimName: {{ $itemVolumes.name }}
-        {{- end }}
-        {{ if eq $itemVolumes.type "longhorn" }}
-          persistentVolumeClaim:
-            claimName: {{ $itemVolumes.name }}
-        {{- end }}
-        {{ if eq $itemVolumes.type "csi-s3" }}
+        {{- if include "listContains" (list "rook-cephfs" "csi-s3" "iscsi" "rook-ceph-block" "longhorn" "pvc" "nfs", "openebs-device", "openebs-hostpath") $itemVolumes.type }}
           persistentVolumeClaim:
             claimName: {{ $itemVolumes.name }}
             readOnly: {{ $itemVolumes.readOnly | default false }}
-        {{- end }}
-        {{ if eq $itemVolumes.type "pvc" }}
-          persistentVolumeClaim:
-            claimName: {{ $itemVolumes.name }}
-        {{- end }}
-        {{ if eq $itemVolumes.type "nfs" }}
-          persistentVolumeClaim:
-            claimName: {{ $itemVolumes.name }}
-        {{- end }}
-        {{ if eq $itemVolumes.type "iscsi" }}
-          persistentVolumeClaim:
-            claimName: {{ $itemVolumes.name }}
-        {{- end }}
-        {{ if eq $itemVolumes.type "rook-cephfs" }}
-          persistentVolumeClaim:
-            claimName: {{ $itemVolumes.name }}
-            readOnly: {{ $itemVolumes.readOnly }}
         {{- end }}
         {{ if eq $itemVolumes.type "ConfigMap" }}
           configMap:
