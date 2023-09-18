@@ -1,4 +1,3 @@
-namespace: web-conveior
 type: Deployment
 #tolerations:
 #  - web
@@ -7,7 +6,6 @@ type: Deployment
 #    values:
 #      - asdf
 #      - fdsa
-istioEnabled: false
 #secretRegistry: "ZW1wdHk="
 #oauthClient: "ZW1wdHk="
 #oauthSecret: "ZW1wdHk="

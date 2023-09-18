@@ -6,7 +6,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: {{ $item_name }}
-  namespace: {{ $.Values.namespace }}
+  namespace: {{ $.Release.Namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "4"
 spec:
@@ -21,7 +21,7 @@ spec:
       {{- if or ($itemPorts.auth) ($item.oauth2) }}
       middlewares:
         - name: {{ $item_name }}-{{ $itemPorts.name }}
-          namespace: {{ $.Values.namespace }}
+          namespace: {{ $.Release.Namespace }}
       {{- end }}
       {{- if $itemPorts.auth }}
         {{ if $item.oauth2 }}
@@ -32,7 +32,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: secret-{{ $item_name }}-{{ $itemPorts.name }}
-  namespace: {{ $.Values.namespace }}
+  namespace: {{ $.Release.Namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "4"
 data:

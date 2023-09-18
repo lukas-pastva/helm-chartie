@@ -6,13 +6,13 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: {{ $item_name }}-{{ $itemPorts.name }}
-  namespace: {{ $.Values.namespace }}
+  namespace: {{ $.Release.Namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "4"
 spec:
       {{ if $item.oauth2 }}
   forwardAuth:
-    address: http://{{ $item_name }}-oauth2.{{ $.Values.namespace }}.svc.cluster.local:4181
+    address: http://{{ $item_name }}-oauth2.{{ $.Release.Namespace }}.svc.cluster.local:4181
     trustForwardHeader: true
     authResponseHeaders:
       - X-Forwarded-User

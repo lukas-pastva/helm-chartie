@@ -6,6 +6,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ $itemVolumes.name }}
+  namespace: {{ $.Release.Namespace }}
   labels:
     app.kubernetes.io/name: {{ $itemVolumes.name }}
   annotations:
