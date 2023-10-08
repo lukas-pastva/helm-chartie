@@ -12,8 +12,6 @@ metadata:
 {{- end }}
   name: {{ $item_name }}
   namespace: {{ $.Release.Namespace }}
-  annotations:
-    argocd.argoproj.io/sync-wave: "4"
 spec:
   ports:
   {{- range $itemPort := $item.ports }}
@@ -38,8 +36,6 @@ metadata:
     app.kubernetes.io/name: {{ $item_name }}-oauth2
   name: {{ $item_name }}-oauth2
   namespace: {{ $.Release.Namespace }}
-  annotations:
-    argocd.argoproj.io/sync-wave: "4"
 spec:
   ports:
     - name: http-oauth2

@@ -7,8 +7,6 @@ kind: PersistentVolume
 metadata:
   name: {{ $itemVolumes.name }}
   namespace: {{ $.Release.Namespace }}
-  annotations:
-    argocd.argoproj.io/sync-wave: "4"
 spec:
   capacity:
     storage: 1Gi
@@ -24,8 +22,6 @@ metadata:
   name: {{ $itemVolumes.name }}
   labels:
     app.kubernetes.io/name: {{ $itemVolumes.name }}
-  annotations:
-    argocd.argoproj.io/sync-wave: "4"
 spec:
   accessModes:
     - ReadWriteOnce

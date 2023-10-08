@@ -7,8 +7,6 @@ metadata:
   labels:
     app.kubernetes.io/name: {{ $item_name }}
   namespace: {{ $.Release.Namespace }}
-  annotations:
-    argocd.argoproj.io/sync-wave: "4"
 spec:
   {{ if eq $.Values.type "Deployment" }}replicas: {{ $item.replicaCount | default 1 }}{{- end }}
   revisionHistoryLimit: 1

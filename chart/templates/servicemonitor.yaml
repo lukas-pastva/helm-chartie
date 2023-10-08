@@ -6,8 +6,6 @@ kind: ServiceMonitor
 metadata:
   name: {{ $item_name }}
   namespace: {{ $.Release.Namespace }}
-  annotations:
-    argocd.argoproj.io/sync-wave: "4"
   labels:
     app: {{ $item_name }}
     release: sys-monitoring

@@ -1,24 +1,25 @@
 {{- range $item_name, $item := .Values.pods }}
   {{- range $itemPorts := $item.ports }}
     {{- if $itemPorts.domains }}
+      {{- if or ($itemPorts.auth) ($item.oauth2) }}
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: {{ $item_name }}-{{ $itemPorts.name }}
   namespace: {{ $.Release.Namespace }}
-  annotations:
-    argocd.argoproj.io/sync-wave: "4"
 spec:
-      {{ if $item.oauth2 }}
+        {{ if $item.oauth2 }}
   forwardAuth:
     address: http://{{ $item_name }}-oauth2.{{ $.Release.Namespace }}.svc.cluster.local:4181
     trustForwardHeader: true
     authResponseHeaders:
       - X-Forwarded-User
-      {{ else }}
+        {{ else }}
   basicAuth:
     secret: secret-{{ $item_name }}-{{ $itemPorts.name }}
+        {{- end }}
+    
       {{- end }}
     {{- end }}
   {{- end }}
