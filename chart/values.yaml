@@ -9,7 +9,7 @@ type: Deployment
 #secretRegistry: "ZW1wdHk="
 #oauthClient: "ZW1wdHk="
 #oauthSecret: "ZW1wdHk="
-
+ingressType: nginx #traefik
 
 pods: {}
 #  conveior:
@@ -28,8 +28,9 @@ pods: {}
 #      - name: http
 #        port: 80
 #        domains:
-#          - "conveior.io"
-#          - "www.conveior.iok"
+#          - "conveior.tronic.sk"
+#          - "www.tronic.sk"
+#          - "www.lukaspastva.sk"
 #        paths:
 #          - "/"
 #        serviceMonitorEnabled: true
