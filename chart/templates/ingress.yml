@@ -1,38 +1,28 @@
-{{- range $item_name, $item := .Values.pods }}
-  {{- range $itemPorts := $item.ports }}
-    {{- if $itemPorts.domains }}
+{{ if eq $.Values.ingressType "nginx" }}
+  {{- range $item_name, $item := .Values.pods }}
+    {{- range $itemPorts := $item.ports }}
+      {{- if $itemPorts.domains }}
 ---
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
   name: {{ $item_name }}
   namespace: {{ $.Release.Namespace }}
 spec:
-  entryPoints:
-    - websecure
-  routes:
-    - match: Host({{- $lastDomain := sub (len $itemPorts.domains) 1 }}{{- range $indexDomain, $domain := $itemPorts.domains }}`{{ $domain }}`{{ if ne $indexDomain $lastDomain }},{{ end }}{{- end }}) && PathPrefix({{- $lastPath := sub (len $itemPorts.paths) 1 }}{{- range $indexPath, $path := $itemPorts.paths }}`{{ $path }}`{{ if ne $indexPath $lastPath }},{{ end }}{{- end }})
-      kind: Rule
-      services:
-        - name: {{ $item_name }}
-          port: {{ $itemPorts.port }}
-      {{- if or ($itemPorts.auth) ($item.oauth2) }}
-      middlewares:
-        - name: {{ $item_name }}-{{ $itemPorts.name }}
-          namespace: {{ $.Release.Namespace }}
-      {{- end }}
-      {{- if $itemPorts.auth }}
-        {{ if $item.oauth2 }}
----
-        {{ else }}
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: secret-{{ $item_name }}-{{ $itemPorts.name }}
-  namespace: {{ $.Release.Namespace }}
-data:
-  users: {{ $itemPorts.auth }}
+  rules:
+        {{- range $indexDomain, $domain := $itemPorts.domains }}
+    - host: {{ $domain }}
+      http:
+        paths:
+          {{- range $indexPath, $path := $itemPorts.paths }}
+          - backend:
+              service:
+                name: {{ $item_name }}
+                port:
+                  number: {{ $itemPorts.port }}
+            path: {{ $path }}
+            pathType: Prefix
+          {{- end }}
         {{- end }}
       {{- end }}
     {{- end }}
