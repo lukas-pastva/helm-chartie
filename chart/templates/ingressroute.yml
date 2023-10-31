@@ -2,6 +2,8 @@
   {{- range $item_name, $item := .Values.pods }}
     {{- range $itemPorts := $item.ports }}
       {{- if $itemPorts.domains }}
+
+
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -17,15 +19,15 @@ spec:
       services:
         - name: {{ $item_name }}
           port: {{ $itemPorts.port }}
-      {{- if or ($itemPorts.auth) ($item.oauth2) }}
+        {{- if or ($itemPorts.auth) ($item.oauth2) }}
       middlewares:
         - name: {{ $item_name }}-{{ $itemPorts.name }}
           namespace: {{ $.Release.Namespace }}
-      {{- end }}
-      {{- if $itemPorts.auth }}
-        {{ if $item.oauth2 }}
+        {{- end }}
+        {{- if $itemPorts.auth }}
+          {{ if $item.oauth2 }}
 ---
-        {{ else }}
+         {{ else }}
 ---
 apiVersion: v1
 kind: Secret
@@ -34,8 +36,32 @@ metadata:
   namespace: {{ $.Release.Namespace }}
 data:
   users: {{ $itemPorts.auth }}
+           {{- end }}
+         {{- end }}
+
+
+        {{- if or ($itemPorts.auth) ($item.oauth2) }}
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ $item_name }}-{{ $itemPorts.name }}
+  namespace: {{ $.Release.Namespace }}
+spec:
+          {{ if $item.oauth2 }}
+  forwardAuth:
+    address: http://{{ $item_name }}-oauth2.{{ $.Release.Namespace }}.svc.cluster.local:4181
+    trustForwardHeader: true
+    authResponseHeaders:
+      - X-Forwarded-User
+          {{ else }}
+  basicAuth:
+    secret: secret-{{ $item_name }}-{{ $itemPorts.name }}
           {{- end }}
+      
         {{- end }}
+
+
       {{- end }}
     {{- end }}
   {{- end }}

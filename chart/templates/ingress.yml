@@ -2,12 +2,20 @@
   {{- range $item_name, $item := .Values.pods }}
     {{- range $itemPorts := $item.ports }}
       {{- if $itemPorts.domains }}
+
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ $item_name }}
   namespace: {{ $.Release.Namespace }}
+        {{- if $itemPorts.auth }}
+  annotations:
+    nginx.ingress.kubernetes.io/auth-realm: Authentication Required
+    nginx.ingress.kubernetes.io/auth-secret: secret-{{ $item_name }}-{{ $itemPorts.name }}
+    nginx.ingress.kubernetes.io/auth-type: basic
+        {{- end }}
+
 spec:
   rules:
         {{- range $indexDomain, $domain := $itemPorts.domains }}
@@ -24,6 +32,20 @@ spec:
             pathType: Prefix
           {{- end }}
         {{- end }}
+
+        {{- if $itemPorts.auth }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-{{ $item_name }}-{{ $itemPorts.name }}
+  namespace: {{ $.Release.Namespace }}
+data:
+  auth: {{ $itemPorts.auth }}
+        {{- end }}
+
+
+
       {{- end }}
     {{- end }}
   {{- end }}
