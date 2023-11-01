@@ -7,9 +7,6 @@ type: Deployment
 #      - asdf
 #      - fdsa
 #secretRegistry: "ZW1wdHk="
-#oauthClient: "ZW1wdHk="
-#oauthSecret: "ZW1wdHk="
-ingressType: nginx #traefik
 
 pods: {}
 #  conveior:
