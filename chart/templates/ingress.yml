@@ -15,9 +15,7 @@ metadata:
       {{- end }}
       {{- if $itemPorts.oauth2 }}
     nginx.ingress.kubernetes.io/auth-url: "https://{{ $itemPorts.oauth2 }}/oauth2/auth"
-    nginx.ingress.kubernetes.io/auth-signin: "https://{{ $itemPorts.oauth2 }}/oauth2/start?rd=$scheme://$best_http_host$request_uri"
-    nginx.ingress.kubernetes.io/auth-response-headers: "x-auth-request-user, x-auth-request-email, x-auth-request-access-token"
-    nginx.ingress.kubernetes.io/proxy-buffer-size: "16k"
+    nginx.ingress.kubernetes.io/auth-signin: "https://{{ $itemPorts.oauth2 }}/oauth2/start?rd=$scheme://$http_host$request_uri"
       {{- end }}
 spec:
   rules:
