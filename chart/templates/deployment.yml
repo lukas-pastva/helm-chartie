@@ -98,7 +98,6 @@ spec:
           {{ if $item.resourcesSimple -}}
           resources:
             limits:
-              cpu: {{ mulf $item.resourcesSimple 1.5 }}m
               memory: {{ mulf $item.resourcesSimple 1.7 }}Mi
             requests:
               cpu: {{ $item.resourcesSimple }}m
