@@ -17,6 +17,7 @@ metadata:
     nginx.ingress.kubernetes.io/auth-url: "https://{{ $itemPorts.oauth2 }}/oauth2/auth"
     nginx.ingress.kubernetes.io/auth-signin: "https://{{ $itemPorts.oauth2 }}/oauth2/start?rd=$scheme://$http_host$request_uri"
       {{- end }}
+      {{- if $itemPorts.annotations }}{{- $itemPorts.annotations | toYaml | nindent 4 }}{{- end }}
 spec:
   rules:
       {{- range $indexDomain, $domain := $itemPorts.domains }}
