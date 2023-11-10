@@ -11,7 +11,6 @@ metadata:
     app.kubernetes.io/name: {{ $itemVolumes.name }}
   annotations:
     volume.beta.kubernetes.io/storage-class: "sys-truenas-iscsi"
-    argocd.argoproj.io/sync-wave: "4"
 spec:
   storageClassName: sys-truenas-iscsi
   accessModes:
