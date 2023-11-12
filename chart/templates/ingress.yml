@@ -19,6 +19,10 @@ metadata:
       {{- end }}
       {{- if $itemPorts.annotations }}{{- $itemPorts.annotations | toYaml | nindent 4 }}{{- end }}
 spec:
+      {{- if $itemPorts.tls }}
+  tls:
+{{ $itemPorts.tls | toYaml | indent 4 }}
+      {{- end }}
   rules:
       {{- range $indexDomain, $domain := $itemPorts.domains }}
     - host: {{ $domain }}
