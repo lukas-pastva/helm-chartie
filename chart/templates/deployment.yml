@@ -28,12 +28,6 @@ spec:
       {{- if $.Values.nodeName }}
       nodeName: {{ $.Values.nodeName | quote }}
       {{- end }}
-      {{- if $item.privileged }}
-      securityContext:
-        runAsUser: 0
-        runAsGroup: 0
-        fsGroup: 0
-      {{- end }}
       {{ if $.Values.tolerations }}
       tolerations:
       {{- range $toleration := $.Values.tolerations }}
@@ -59,10 +53,6 @@ spec:
                   {{- end }}
               {{- end }}
       {{- end }}
-      {{- if $item.securityContext }}
-      securityContext:
-        {{- $item.securityContext | toYaml | nindent 8 }}
-      {{- end }}
       {{- if $item.serviceAccountEnabled }}
       serviceAccountName: {{ $item_name }}
       {{- end }}
@@ -72,9 +62,16 @@ spec:
       containers:
         - name: {{ $item_name }}
           image: "{{ $item.repo }}"
-        {{- if $item.privileged }}
+        {{- if $item.podSecurityContextRestricted }}
           securityContext:
-            privileged: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 100
         {{- end }}
         {{- if $item.podSecurityContext }}
           securityContext:
@@ -86,6 +83,10 @@ spec:
             {{- range $item.command }}
              - {{ . }}
             {{- end }}
+          {{- end }}
+          {{- if $item.args }}
+          args:
+          {{- $item.args | toYaml | nindent 12 }}
           {{- end }}
           {{- if $item.ports }}
           ports:
@@ -163,10 +164,6 @@ spec:
           {{- if $item.env }}
           {{- $item.env | toYaml | nindent 12 }}
           {{- end }}
-          {{- end }}
-          {{- if $item.args }}
-          args:
-          {{- $item.args |toYaml | nindent 12 }}
           {{- end }}
     {{- if $item.volumes }}
           volumeMounts:
