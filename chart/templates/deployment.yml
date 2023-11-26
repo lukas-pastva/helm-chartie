@@ -66,6 +66,9 @@ spec:
       {{- if $item.serviceAccountEnabled }}
       serviceAccountName: {{ $item_name }}
       {{- end }}
+      {{- if $item.serviceAccountExternal }}
+      serviceAccountName: {{ $item.serviceAccountExternal }}
+      {{- end }}
       containers:
         - name: {{ $item_name }}
           image: "{{ $item.repo }}"
