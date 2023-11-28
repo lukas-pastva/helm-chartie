@@ -1,14 +1,14 @@
 {{- range $item_name, $item := .Values.pods }}
 ---
 apiVersion: apps/v1
-kind: {{ $.Values.type }}
+kind: Deployment
 metadata:
   name: {{ $item_name }}
   labels:
     app.kubernetes.io/name: {{ $item_name }}
   namespace: {{ $.Release.Namespace }}
 spec:
-  {{ if eq $.Values.type "Deployment" }}replicas: {{ $item.replicaCount | default 1 }}{{- end }}
+  replicas: {{ $item.replicaCount | default 1 }}
   revisionHistoryLimit: 1
   selector:
     matchLabels:
