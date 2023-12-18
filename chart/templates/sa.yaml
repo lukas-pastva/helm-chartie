@@ -1,0 +1,8 @@
+{{- range $item_name, $item := .Values.pods }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ $item_name }}
+  namespace: {{ $.Release.Namespace }}
+{{- end }}

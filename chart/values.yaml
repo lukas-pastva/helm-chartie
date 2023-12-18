@@ -12,6 +12,9 @@ pods: {}
 #    repo: registry.hub.docker.com/lukaspastva/conveior-web:0.1.44
 #    resourcesSimple: 80
 #    replicaCount: 1
+#    podSecurityContextRestricted: true
+#    podSecurityContext:
+#      securityContext: ...
 #    labels:
 #      checksum: {{ include (print $.Template.BasePath "/cm-application.yml") . | sha256sum }}
 #    annotations:
@@ -29,7 +32,6 @@ pods: {}
 #        paths:
 #          - "/"
 #        serviceMonitorEnabled: true
-#        serviceAccountEnabled: false
 #        networkPolicy:
 #          enabled: true
 #          destinationNamespace: monitoring

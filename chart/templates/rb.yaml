@@ -1,23 +1,16 @@
 {{- range $item_name, $item := .Values.pods }}
-{{- if $item.serviceAccountEnabled }}
 ---
-apiVersion: v1
-kind: ServiceAccount
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
 metadata:
   name: {{ $item_name }}
   namespace: {{ $.Release.Namespace }}
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  name: {{ $item_name }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cluster-admin
+  kind: Role
+  name: empty-role
 subjects:
   - kind: ServiceAccount
     name: {{ $item_name }}
     namespace: {{ $.Release.Namespace }}
-{{- end }}
 {{- end }}

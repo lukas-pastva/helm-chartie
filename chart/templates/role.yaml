@@ -1,0 +1,9 @@
+{{- range $item_name, $item := .Values.pods }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ $item_name }}
+  namespace: {{ $.Release.Namespace }}
+rules: []
+{{- end }}
