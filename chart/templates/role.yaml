@@ -5,5 +5,5 @@ kind: Role
 metadata:
   name: {{ $item_name }}
   namespace: {{ $.Release.Namespace }}
-rules: []
+rules: {{- if $item.roleRules }} {{ $item.roleRules | toYaml | nindent 2 }}{{ else }} []{{ end }}
 {{- end }}

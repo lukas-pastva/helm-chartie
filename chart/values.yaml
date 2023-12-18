@@ -12,9 +12,10 @@ pods: {}
 #    repo: registry.hub.docker.com/lukaspastva/conveior-web:0.1.44
 #    resourcesSimple: 80
 #    replicaCount: 1
+#    roleRules: []
 #    podSecurityContextRestricted: true
 #    podSecurityContext:
-#      securityContext: ...
+#      securityContext: {}
 #    labels:
 #      checksum: {{ include (print $.Template.BasePath "/cm-application.yml") . | sha256sum }}
 #    annotations:
