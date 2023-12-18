@@ -1,4 +1,5 @@
 {{- range $item_name, $item := .Values.pods }}
+  {{- if not $item.rbacDisabled }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -6,4 +7,5 @@ metadata:
   name: {{ $item_name }}
   namespace: {{ $.Release.Namespace }}
 rules: {{- if $item.roleRules }} {{ $item.roleRules | toYaml | nindent 2 }}{{ else }} []{{ end }}
+  {{- end }}
 {{- end }}

@@ -1,4 +1,5 @@
 {{- range $item_name, $item := .Values.pods }}
+  {{- if not $item.rbacDisabled }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -13,9 +14,10 @@ subjects:
   - kind: ServiceAccount
     name: {{ $item_name }}
     namespace: {{ $.Release.Namespace }}
-  {{- range $saName, $sa := $item.extraServiceAccounts }}
+    {{- range $saName, $sa := $item.extraServiceAccounts }}
   - kind: ServiceAccount
     name: {{ $saName }}
     namespace: {{ $sa.namespace }}
+    {{- end }}
   {{- end }}
 {{- end }}
