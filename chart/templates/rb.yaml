@@ -13,4 +13,9 @@ subjects:
   - kind: ServiceAccount
     name: {{ $item_name }}
     namespace: {{ $.Release.Namespace }}
+  {{- range $saName, $sa := $item.extraServiceAccounts }}
+  - kind: ServiceAccount
+    name: {{ $saName }}
+    namespace: {{ $sa.namespace }}
+  {{- end }}
 {{- end }}

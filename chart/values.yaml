@@ -13,6 +13,9 @@ pods: {}
 #    resourcesSimple: 80
 #    replicaCount: 1
 #    roleRules: []
+#    extraServiceAccounts:
+#      conveior:
+#        namespace: conveior
 #    podSecurityContextRestricted: true
 #    podSecurityContext:
 #      securityContext: {}
