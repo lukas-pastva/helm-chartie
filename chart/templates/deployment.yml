@@ -176,6 +176,9 @@ spec:
       volumes:
       {{- range $itemVolumes := $item.volumes }}
         - name: {{ $itemVolumes.name }}
+        {{ if eq $itemVolumes.type "emptyDir" }}
+          emptyDir: {}
+        {{- end }}
         {{ if eq $itemVolumes.type "hostPath" }}
           hostPath:
             path: {{ $itemVolumes.hostPath | quote}}
