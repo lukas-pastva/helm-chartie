@@ -36,11 +36,13 @@ pods: {}
 #          - "www.lukaspastva.sk"
 #        paths:
 #          - "/"
-#        serviceMonitorEnabled: true
-#        networkPolicy:
-#          enabled: true
-#          destinationNamespace: monitoring
-#          destinationPod: "kube-prometheus-stack-prometheus"
+#    serviceMonitor:
+#      enabled: true
+#      interval: 60s #optional
+#    networkPolicy:
+#      enabled: true
+#      destinationNamespace: monitoring
+#      destinationPod: "kube-prometheus-stack-prometheus"
 #configMaps:
 #  - name: config
 #    data:

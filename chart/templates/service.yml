@@ -1,15 +1,10 @@
 {{- range $item_name, $item := .Values.pods }}
-
   {{- if $item.ports }}
----
 apiVersion: v1
 kind: Service
 metadata:
   labels:
     app.kubernetes.io/name: {{ $item_name }}
-{{- if $item.serviceMonitorEnabled }}
-    app.kubernetes.io/part-of: kube-prometheus
-{{- end }}
   name: {{ $item_name }}
   namespace: {{ $.Release.Namespace }}
 spec:
@@ -26,5 +21,4 @@ spec:
 status:
   loadBalancer: {}
   {{- end }}
-
 {{- end }}

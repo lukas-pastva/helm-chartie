@@ -1,6 +1,5 @@
 {{- range $item_name, $item := .Values.pods }}
-{{- if $item.serviceMonitorEnabled }}
----
+  {{- if $item.serviceMonitor.enabled }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
@@ -14,12 +13,12 @@ spec:
     - path: /metrics
       port: http
       scheme: http
-      interval: 60s
+      interval: {{ $item.serviceMonitor.interval | default "60s" }}
   namespaceSelector:
     matchNames:
       - {{ $.Release.Namespace }}
   selector:
     matchLabels:
       app.kubernetes.io/name: {{ $item_name }}
-{{- end }}
+  {{- end }}
 {{- end }}
