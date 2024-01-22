@@ -1,5 +1,6 @@
 {{- range $item_name, $item := .Values.pods }}
   {{- if and $item.serviceMonitor ($item.serviceMonitor.enabled) }}
+---
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:

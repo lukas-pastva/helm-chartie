@@ -1,5 +1,6 @@
 {{- range $item_name, $item := .Values.pods }}
   {{- if $item.ports }}
+---
 apiVersion: v1
 kind: Service
 metadata:
