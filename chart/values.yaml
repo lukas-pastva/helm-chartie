@@ -13,6 +13,7 @@ pods: {}
 #    resourcesSimple: 80
 #    replicaCount: 1
 #    roleRules: []
+#    clusterRules: []
 #    rbacDisabled: false
 #    extraServiceAccounts:
 #      conveior:
