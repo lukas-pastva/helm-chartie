@@ -179,11 +179,16 @@ spec:
         {{ if eq $itemVolumes.type "emptyDir" }}
           emptyDir: {}
         {{- end }}
+        {{ if eq $itemVolumes.type "nfs" }}
+          nfs:
+            path: {{ $itemVolumes.path | quote}}
+            server: {{ $itemVolumes.server | quote}}
+        {{- end }}
         {{ if eq $itemVolumes.type "hostPath" }}
           hostPath:
             path: {{ $itemVolumes.hostPath | quote}}
         {{- end }}
-        {{- if eq (include "listContains" (dict "list" (list "rook-cephfs" "csi-s3" "iscsi" "rook-ceph-block" "longhorn" "pvc" "nfs" "openebs-device" "openebs-hostpath") "value" $itemVolumes.type)) "true" }}
+        {{- if eq (include "listContains" (dict "list" (list "rook-cephfs" "csi-s3" "iscsi" "rook-ceph-block" "longhorn" "pvc" "truenas-nfs" "openebs-device" "openebs-hostpath") "value" $itemVolumes.type)) "true" }}
           persistentVolumeClaim:
             claimName: {{ $itemVolumes.name }}
             readOnly: {{ $itemVolumes.readOnly | default false }}
