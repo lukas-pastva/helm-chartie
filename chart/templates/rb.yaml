@@ -12,7 +12,7 @@ roleRef:
   name: {{ $item_name }}
 subjects:
   - kind: ServiceAccount
-    name: {{ $item_name }}
+    name: {{- if $item.serviceAccountName }} {{ $item.serviceAccountName }}{{ else }} {{ $item_name }}{{- end }}
     namespace: {{ $.Release.Namespace }}
     {{- range $saName, $sa := $item.extraServiceAccounts }}
   - kind: ServiceAccount

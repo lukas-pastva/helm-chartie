@@ -15,6 +15,7 @@ pods: {}
 #    roleRules: []
 #    clusterRules: []
 #    rbacDisabled: false
+#    serviceAccountName: default
 #    extraServiceAccounts:
 #      conveior:
 #        namespace: conveior
