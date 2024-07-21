@@ -76,7 +76,7 @@ spec:
           {{- if $item.command }}
           command:
             {{- range $item.command }}
-             - {{ . }}
+             - |{{ . | nindent 16 }}
             {{- end }}
           {{- end }}
           {{- if $item.args }}
