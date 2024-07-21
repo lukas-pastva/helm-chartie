@@ -173,6 +173,10 @@ spec:
               {{- end }}
       {{- end }}
     {{- end }}
+    {{- if $item.volumeMountsFull }}
+          volumeMounts:
+          {{ $item.volumeMountsFull | toYaml | nindent 12 }}
+    {{- end }}
     {{- if $item.volumesFull }}
       volumes:
         {{ $item.volumesFull | toYaml | nindent 8 }}
