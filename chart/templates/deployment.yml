@@ -75,9 +75,7 @@ spec:
           imagePullPolicy: "Always"
           {{- if $item.command }}
           command:
-            {{- range $item.command }}
-             - |{{ . | nindent 16 }}
-            {{- end }}
+            {{- $item.command | toYaml | nindent 12 }}
           {{- end }}
           {{- if $item.args }}
           args:
