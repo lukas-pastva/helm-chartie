@@ -173,6 +173,10 @@ spec:
               {{- end }}
       {{- end }}
     {{- end }}
+    {{- if $item.volumesFull }}
+      volumes:
+        {{ $item.volumesFull | toYaml | nindent 8 }}
+    {{ else }}
       volumes:
       {{- range $itemVolumes := $item.volumes }}
         - name: {{ $itemVolumes.name }}
@@ -205,6 +209,7 @@ spec:
                 path: {{ $itemVolumes.subPath }}
         {{- end }}
       {{- end }}
+    {{- end }}
       imagePullSecrets:
         - name: secrets-registry
 {{- end }}
