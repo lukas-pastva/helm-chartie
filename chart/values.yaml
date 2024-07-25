@@ -41,6 +41,7 @@ pods: {}
 #    serviceMonitor:
 #      enabled: true
 #      interval: 60s #optional
+#      release: sys-monitoring #optional
 #    networkPolicy:
 #      enabled: true
 #      destinationNamespace: monitoring
