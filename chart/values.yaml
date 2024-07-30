@@ -15,6 +15,7 @@ pods: {}
 #    roleRules: []
 #    clusterRules: []
 #    rbacDisabled: false
+#    serviceExternalName: www.google.com
 #    serviceAccountName: default
 #    extraServiceAccounts:
 #      conveior:

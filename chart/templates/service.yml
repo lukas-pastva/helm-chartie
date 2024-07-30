@@ -9,17 +9,20 @@ metadata:
   name: {{ $item_name }}
   namespace: {{ $.Release.Namespace }}
 spec:
+    {{- if $item.serviceExternalName }}
+  type: ExternalName
+  externalName: {{ $item.serviceExternalName }}
+    {{- else }}
+  type: ClusterIP
   ports:
-  {{- range $itemPort := $item.ports }}
+      {{- range $itemPort := $item.ports }}
     - name: {{ $itemPort.name }}
       port: {{ $itemPort.port }}
       protocol: TCP
       targetPort: {{ $itemPort.port }}
-  {{- end }}
+      {{- end }}
   selector:
     app.kubernetes.io/name: {{ $item_name }}
-  type: ClusterIP
-status:
-  loadBalancer: {}
+    {{- end }}
   {{- end }}
 {{- end }}
