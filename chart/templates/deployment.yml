@@ -1,4 +1,4 @@
-{{- range $item_name, $item := .Values.pods }}
+{{- range $item_name, $item := .Values.deployments }}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -53,10 +53,10 @@ spec:
                   {{- end }}
               {{- end }}
       {{- end }}
-      serviceAccountName: {{- if $item.serviceAccountExternal }} {{ $item.serviceAccountExternal }}{{ else }}{{- if $item.serviceAccountName }} {{ $item.serviceAccountName }}{{ else }} {{ $item_name }}{{- end }}{{- end }}
+      serviceAccountName: {{- if $item.serviceAccountExternal }} {{ $item.serviceAccountExternal }}{{ else }}{{- if $item.serviceAccountName }} {{ $item.serviceAccountName }}{{ else }}default{{- end }}{{- end }}
       containers:
         - name: {{ $item_name }}
-          image: "{{ $item.repo }}"
+          image: "{{ $item.image }}"
         {{- if $item.podSecurityContextRestricted }}
           securityContext:
             allowPrivilegeEscalation: false
@@ -212,6 +212,8 @@ spec:
         {{- end }}
       {{- end }}
     {{- end }}
+    {{- if .Values.secretRegistry }}
       imagePullSecrets:
         - name: secrets-registry
+    {{- end }}
 {{- end }}

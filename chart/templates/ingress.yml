@@ -1,4 +1,4 @@
-{{- range $item_name, $item := .Values.pods }}
+{{- range $item_name, $item := .Values.deployments }}
   {{- range $itemPorts := $item.ports }}
     {{- if $itemPorts.domains }}
 ---

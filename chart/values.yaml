@@ -7,9 +7,9 @@
 #      - fdsa
 #secretRegistry: "ZW1wdHk="
 
-pods: {}
+deployments: {}
 #  conveior:
-#    repo: registry.hub.docker.com/lukaspastva/conveior-web:0.1.44
+#    image: registry.hub.docker.com/lukaspastva/conveior-web:0.1.44
 #    resourcesSimple: 80
 #    replicaCount: 1
 #    roleRules: []

@@ -1,4 +1,4 @@
-{{- range $item_name, $item := .Values.pods }}
+{{- range $item_name, $item := .Values.deployments }}
   {{- if and $item.serviceMonitor ($item.serviceMonitor.enabled) }}
 ---
 apiVersion: monitoring.coreos.com/v1

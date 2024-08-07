@@ -1,4 +1,4 @@
-{{- range $item_name, $item := .Values.pods }}
+{{- range $item_name, $item := .Values.deployments }}
 ---
 apiVersion: v1
 kind: ServiceAccount
