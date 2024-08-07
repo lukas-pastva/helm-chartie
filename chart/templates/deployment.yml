@@ -53,7 +53,7 @@ spec:
                   {{- end }}
               {{- end }}
       {{- end }}
-      serviceAccountName: {{- if $item.serviceAccountExternal }} {{ $item.serviceAccountExternal }}{{ else }}{{- if $item.serviceAccountName }} {{ $item.serviceAccountName }}{{ else }}default{{- end }}{{- end }}
+      serviceAccountName: {{- if $item.serviceAccountExternal }} {{ $item.serviceAccountExternal }}{{ else }}{{- if $item.serviceAccountName }} {{ $item.serviceAccountName }}{{ else }} 'default'{{- end }}{{- end }}
       containers:
         - name: {{ $item_name }}
           image: "{{ $item.image }}"
