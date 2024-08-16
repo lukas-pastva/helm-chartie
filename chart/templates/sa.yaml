@@ -1,8 +1,10 @@
 {{- range $item_name, $item := .Values.deployments }}
+  {{- if not $item.doNotCreateServiceAccount }}
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: {{- if $item.serviceAccountName }} {{ $item.serviceAccountName }}{{ else }} {{ $item_name }}{{- end }}
   namespace: {{ $.Release.Namespace }}
+  {{- end }}
 {{- end }}

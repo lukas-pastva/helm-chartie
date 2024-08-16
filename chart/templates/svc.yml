@@ -17,7 +17,7 @@ spec:
   ports:
       {{- range $itemPort := $item.ports }}
     - name: {{ $itemPort.name }}
-      port: {{ $itemPort.port }}
+      port: {{- if $itemPort.portIngress }} {{ $itemPort.portIngress }}{{ else }} {{ $itemPort.port }}{{- end }} 
       protocol: TCP
       targetPort: {{ $itemPort.port }}
       {{- end }}

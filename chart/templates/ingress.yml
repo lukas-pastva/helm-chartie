@@ -33,7 +33,7 @@ spec:
               service:
                 name: {{ $item_name }}
                 port:
-                  number: {{ $itemPorts.port }}
+                  number: {{- if $itemPorts.portIngress }} {{ $itemPorts.portIngress }}{{ else }} {{ $itemPorts.port }}{{- end }} 
             path: {{ $path }}
             pathType: Prefix
         {{- end }}

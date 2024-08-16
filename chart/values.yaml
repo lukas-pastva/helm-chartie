@@ -17,6 +17,7 @@ deployments: {}
 #    rbacDisabled: false
 #    serviceExternalName: www.google.com
 #    serviceAccountName: default
+#    doNotCreateServiceAccount: false
 #    extraServiceAccounts:
 #      conveior:
 #        namespace: conveior
@@ -33,6 +34,7 @@ deployments: {}
 #    ports:
 #      - name: http
 #        port: 80
+#        portIngress: 8088 # some k8s not working when port 80, so this optional field can be used
 #        domains:
 #          - "conveior.tronic.sk"
 #          - "www.tronic.sk"
