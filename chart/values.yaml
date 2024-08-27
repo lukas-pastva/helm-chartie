@@ -1,5 +1,3 @@
-#tolerations:
-#  - web
 #nodeAffinity:
 #  - key: asdf
 #    values:

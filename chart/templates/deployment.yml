@@ -25,18 +25,12 @@ spec:
         {{ $item.annotations | toYaml | nindent 8 }}
         {{- end }}
     spec:
-      {{- if $.Values.nodeName }}
+      {{ if $.Values.nodeName }}
       nodeName: {{ $.Values.nodeName | quote }}
       {{- end }}
-      {{ if $.Values.tolerations }}
+      {{ if $item.tolerations -}}
       tolerations:
-      {{- range $toleration := $.Values.tolerations }}
-      - key: "app-type"
-        operator: "Equal"
-        value: {{ $toleration }}
-        effect: "NoExecute"
-        tolerationSeconds: 3600
-      {{- end }}
+      {{- $item.tolerations | toYaml | nindent 8 }}
       {{- end }}
       {{ if $.Values.nodeAffinity }}
       affinity:
