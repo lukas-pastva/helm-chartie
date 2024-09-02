@@ -3,7 +3,7 @@
 #    values:
 #      - asdf
 #      - fdsa
-#secretRegistry: "ZW1wdHk="
+#secretRegistry: "ZW1wdHk=" # or "true" if stored in another application
 
 deployments: {}
 #  conveior:
