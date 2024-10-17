@@ -212,6 +212,6 @@ spec:
     {{- end }}
     {{- if $.Values.secretRegistry }}
       imagePullSecrets:
-        - name: {{ if eq $.Values.secretRegistry true }}secrets-registry{{ else }}{{ $.Values.secretRegistry }}{{ end }}
+        - name: {{ $.Values.secretRegistry }}
     {{- end }}
 {{- end }}
