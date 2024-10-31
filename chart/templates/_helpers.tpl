@@ -28,9 +28,9 @@ Check if a list contains a value
 
 {{/*
 Compute a combined checksum from a list of template files.
-Usage: {{ include "yourchart.checksum" . }}
+Usage: {{ include "helmChartie.checksum" . }}
 */}}
-{{- define "yourchart.checksum" -}}
+{{- define "helmChartie.checksum" -}}
 {{- $files := .checksumLabelFiles }}
 {{- $combined := "" -}}
 {{- range $file := $files }}
