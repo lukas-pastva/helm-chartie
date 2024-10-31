@@ -10,8 +10,8 @@ deployments: {}
 #    image: registry.hub.docker.com/lukaspastva/conveior-web:0.1.44
 #    resourcesSimple: 80
 #    checksumLabelFiles:
-#      - configmap.yml
-#      - extra-manifests.yaml
+#      - files/configmap.yml
+#      - files/extra-manifests.yaml
 #    replicaCount: 1
 #    roleRules: []
 #    clusterRules: []

@@ -29,15 +29,13 @@ Check if a list contains a value
 {{- define "helmChartie.checksum" -}}
 {{- $files := .checksumLabelFiles }}
 {{- $combined := "" -}}
-{{- range $file := $files }}
-{{- /* Construct the template path relative to the templates/ directory */ -}}
-{{- $templatePath := printf "templates/%s" $file -}}
-{{- /* Check if the template exists to avoid errors */ -}}
-{{- if (lookup "template" $templatePath .) }}
-{{- $combined = printf "%s%s" $combined (include $templatePath .) }}
-{{- else }}
-{{- fail (printf "Template '%s' not found." $templatePath) }}
-{{- end }}
+{{- range $filePath := $files }}
+  {{- $fileContent := .Files.Get $filePath }}
+  {{- if $fileContent }}
+    {{- $combined = printf "%s%s" $combined $fileContent }}
+  {{- else }}
+    {{- fail (printf "File '%s' not found." $filePath) }}
+  {{- end }}
 {{- end }}
 {{- $combined | sha256sum | trunc 63 }}
 {{- end }}
