@@ -21,44 +21,41 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: {{ $item_name }}
-        {{- if $item.checksumLabelFiles }}
-        checksum-config: {{ include "helmChartie.checksum" (dict "checksumLabelFiles" $item.checksumLabelFiles) | quote }}
-        {{- end }}
-        {{- if $item.labels }}
-        {{- toYaml $item.labels | nindent 8 }}
+        {{- if $item.labels -}}
+        {{ $item.labels | toYaml | trunc 63 | nindent 8 }}
         {{- end }}
       annotations:
-        {{- if $item.annotations }}
-        {{- toYaml $item.annotations | nindent 8 }}
+        {{- if $item.annotations -}}
+        {{ $item.annotations | toYaml | nindent 8 }}
         {{- end }}
     spec:
-      {{- if $.Values.nodeName }}
+      {{ if $.Values.nodeName }}
       nodeName: {{ $.Values.nodeName | quote }}
       {{- end }}
-      {{- if $item.tolerations }}
+      {{ if $item.tolerations -}}
       tolerations:
-        {{- toYaml $item.tolerations | nindent 8 }}
+      {{- $item.tolerations | toYaml | nindent 8 }}
       {{- end }}
-      {{- if $.Values.nodeAffinity }}
+      {{ if $.Values.nodeAffinity }}
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
               - matchExpressions:
-                  {{- range $affinity := $.Values.nodeAffinity }}
-                  - key: {{ $affinity.key }}
-                    operator: In
-                    values:
-                      {{- range $affinityValue := $affinity.values }}
-                      - {{ $affinityValue }}
-                      {{- end }}
+              {{- range $affinity := $.Values.nodeAffinity }}
+                - key: {{ $affinity.key }}
+                  operator: In
+                  values:
+                  {{- range $affinityValue := $affinity.values }}
+                    - {{ $affinityValue }}
                   {{- end }}
+              {{- end }}
       {{- end }}
       serviceAccountName: {{- if $item.serviceAccountExternal }} {{ $item.serviceAccountExternal }}{{ else }}{{- if $item.serviceAccountName }} {{ $item.serviceAccountName }}{{ else }} {{ $item_name }}{{- end }}{{- end }}
       containers:
         - name: {{ $item_name }}
           image: "{{ $item.image }}"
-          {{- if $item.podSecurityContextRestricted }}
+        {{- if $item.podSecurityContextRestricted }}
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -68,32 +65,32 @@ spec:
             runAsGroup: 1000
             runAsNonRoot: true
             runAsUser: 100
-          {{- end }}
-          {{- if $item.podSecurityContext }}
+        {{- end }}
+        {{- if $item.podSecurityContext }}
           securityContext:
-            {{- toYaml $item.podSecurityContext | nindent 12 }}
-          {{- end }}
+          {{- $item.podSecurityContext | toYaml | nindent 12 }}
+        {{- end }}
           imagePullPolicy: "Always"
           {{- if $item.command }}
           command:
-            {{- toYaml $item.command | nindent 12 }}
+            {{- $item.command | toYaml | nindent 12 }}
           {{- end }}
           {{- if $item.args }}
           args:
-            {{- toYaml $item.args | nindent 12 }}
+          {{- $item.args | toYaml | nindent 12 }}
           {{- end }}
           {{- if $item.ports }}
           ports:
-            {{- range $itemPort := $item.ports }}
+          {{- range $itemPort := $item.ports }}
             - name: {{ $itemPort.name }}
               containerPort: {{ $itemPort.port }}
               {{- if $itemPort.hostPort }}
               hostPort: {{ $itemPort.hostPort }}
               {{- end }}
               protocol: TCP
-            {{- end }}
           {{- end }}
-          {{- if $item.resourcesSimple }}
+          {{- end }}
+          {{ if $item.resourcesSimple -}}
           resources:
             limits:
               memory: {{ mulf $item.resourcesSimple 1.7 }}Mi
@@ -101,11 +98,11 @@ spec:
               cpu: {{ $item.resourcesSimple }}m
               memory: {{ mulf $item.resourcesSimple 1.2 }}Mi
           {{- end }}
-          {{- if $item.resources }}
+          {{ if $item.resources -}}
           resources:
-            {{- toYaml $item.resources | nindent 12 }}
+            {{- $item.resources | toYaml | nindent 12 }}
           {{- end }}
-          {{- if $item.probesEnabled }}
+          {{ if $item.probesEnabled -}}
           livenessProbe:
             httpGet:
               path: "/health"
@@ -125,10 +122,10 @@ spec:
             timeoutSeconds: 1
             successThreshold: 1
             failureThreshold: 3
-          {{- end }}
-          {{- if or ($item.env) ($item.mysqlEnvsEnabled) }}
+          {{- end -}}
+          {{- if or ($item.env) ($item.mysqlEnvsEnabled) -}}
           env:
-            {{- if $item.mysqlEnvsEnabled }}
+          {{- if $item.mysqlEnvsEnabled }}
             - name: MYSQL_HOST
               valueFrom:
                 secretKeyRef:
@@ -154,67 +151,67 @@ spec:
                 secretKeyRef:
                   name: secrets-sql
                   key: MYSQL_ROOT_PASSWORD
-            {{- end }}
-            {{- if $item.env }}
-            {{- toYaml $item.env | nindent 12 }}
-            {{- end }}
           {{- end }}
-      {{- if $item.volumes }}
-      volumeMounts:
-        {{- range $itemVolumes := $item.volumes }}
-        - name: {{ $itemVolumes.name }}
-          mountPath: {{ $itemVolumes.mountPath | quote }}
-          readOnly: {{ $itemVolumes.readOnly | default false }}
-          {{- if eq $itemVolumes.type "ConfigMap" }}
-          {{- if $itemVolumes.subPath }}
-          subPath: {{ $itemVolumes.subPath }}
+          {{- if $item.env }}
+          {{- $item.env | toYaml | nindent 12 }}
           {{- end }}
           {{- end }}
-        {{- end }}
+    {{- if $item.volumes }}
+          volumeMounts:
+      {{- range $itemVolumes := $item.volumes }}
+            - name: {{ $itemVolumes.name }}
+              mountPath: {{ $itemVolumes.mountPath | quote }}
+              readOnly: {{ $itemVolumes.readOnly | default false }}
+              {{ if eq $itemVolumes.type "ConfigMap" -}}
+              {{ if $itemVolumes.subPath -}}
+              subPath: {{ $itemVolumes.subPath }}
+              {{- end }}
+              {{- end }}
       {{- end }}
-      {{- if $item.volumeMountsFull }}
-      volumeMounts:
-        {{- toYaml $item.volumeMountsFull | nindent 8 }}
-      {{- end }}
-      {{- if $item.volumesFull }}
+    {{- end }}
+    {{- if $item.volumeMountsFull }}
+          volumeMounts:
+          {{ $item.volumeMountsFull | toYaml | nindent 12 }}
+    {{- end }}
+    {{- if $item.volumesFull }}
       volumes:
-        {{- toYaml $item.volumesFull | nindent 8 }}
-      {{- else }}
+        {{ $item.volumesFull | toYaml | nindent 8 }}
+    {{ else }}
       volumes:
-        {{- range $itemVolumes := $item.volumes }}
+      {{- range $itemVolumes := $item.volumes }}
         - name: {{ $itemVolumes.name }}
-          {{- if eq $itemVolumes.type "emptyDir" }}
+        {{ if eq $itemVolumes.type "emptyDir" }}
           emptyDir: {}
-          {{- end }}
-          {{- if eq $itemVolumes.type "nfs" }}
+        {{- end }}
+        {{ if eq $itemVolumes.type "nfs" }}
           nfs:
-            path: {{ $itemVolumes.path | quote }}
-            server: {{ $itemVolumes.server | quote }}
-          {{- end }}
-          {{- if eq $itemVolumes.type "hostPath" }}
+            path: {{ $itemVolumes.path | quote}}
+            server: {{ $itemVolumes.server | quote}}
+        {{- end }}
+        {{ if eq $itemVolumes.type "hostPath" }}
           hostPath:
-            path: {{ $itemVolumes.hostPath | quote }}
-          {{- end }}
-          {{- if (and (include "listContains" (dict "value" $itemVolumes.type "list" (list "rook-cephfs" "csi-s3" "iscsi" "rook-ceph-block" "longhorn" "pvc" "truenas-nfs" "openebs-device" "openebs-hostpath"))) ) }}
+            path: {{ $itemVolumes.hostPath | quote}}
+        {{- end }}
+        {{- if eq (include "listContains" (dict "list" (list "rook-cephfs" "csi-s3" "iscsi" "rook-ceph-block" "longhorn" "pvc" "truenas-nfs" "openebs-device" "openebs-hostpath") "value" $itemVolumes.type)) "true" }}
           persistentVolumeClaim:
             claimName: {{ $itemVolumes.name }}
             readOnly: {{ $itemVolumes.readOnly | default false }}
-          {{- end }}
-          {{- if eq $itemVolumes.type "ConfigMap" }}
+        {{- end }}
+        {{ if eq $itemVolumes.type "ConfigMap" }}
           configMap:
             name: {{ $itemVolumes.name }}
-          {{- end }}
-          {{- if eq $itemVolumes.type "secret" }}
+        {{- end }}
+        {{ if eq $itemVolumes.type "secret" }}
           secret:
             secretName: {{ $itemVolumes.name }}
             items:
               - key: {{ $itemVolumes.subPath }}
                 path: {{ $itemVolumes.subPath }}
-          {{- end }}
         {{- end }}
       {{- end }}
-      {{- if $.Values.secretRegistry }}
+    {{- end }}
+    {{- if $.Values.secretRegistry }}
       imagePullSecrets:
         - name: {{ $.Values.secretRegistry }}
-      {{- end }}
+    {{- end }}
 {{- end }}

@@ -9,9 +9,6 @@ deployments: {}
 #  conveior:
 #    image: registry.hub.docker.com/lukaspastva/conveior-web:0.1.44
 #    resourcesSimple: 80
-#    checksumLabelFiles:
-#      - files/configmap.yml
-#      - files/extra-manifests.yaml
 #    replicaCount: 1
 #    roleRules: []
 #    clusterRules: []
@@ -26,7 +23,7 @@ deployments: {}
 #    podSecurityContext:
 #      securityContext: {}
 #    labels:
-#      label-name: label-value
+#      checksum: {{ include (print $.Template.BasePath "/cm-application.yml") . | sha256sum }}
 #    annotations:
 #      vault.hashicorp.com/agent-inject: "true"
 #      vault.hashicorp.com/role: "myapp-role"

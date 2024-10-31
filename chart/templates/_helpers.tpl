@@ -25,18 +25,3 @@ Check if a list contains a value
     {{- $value }}
 {{- end }}
 {{- end -}}
-
-{{- define "helmChartie.checksum" -}}
-  {{- $files := .checksumLabelFiles }}
-  {{- $combined := "" -}}
-  {{- range $filePath := $files }}
-    {{- $fileContent := $.Files.Get $filePath }}
-    {{- if $fileContent }}
-      {{- $combined = printf "%s%s" $combined $fileContent }}
-    {{- else }}
-      {{- fail (printf "File '%s' not found." $filePath) }}
-    {{- end }}
-  {{- end }}
-  {{- $combined | sha256sum | trunc 63 }}
-{{- end }}
-
