@@ -21,6 +21,11 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: {{ $item_name }}
+        {{- if $item.checksumLabelFiles }}
+          {{- range $checksumLabelFile := $item.checksumLabelFiles }}
+          checksum-config: {{ include (print $.Template.BasePath "/$checksumLabelFile") . | sha256sum | trimSuffix "-" | trunc 63 }}
+          {{- end }}
+        {{- end }}
         {{- if $item.labels -}}
         {{ $item.labels | toYaml | trunc 63 | nindent 8 }}
         {{- end }}

@@ -25,3 +25,16 @@ Check if a list contains a value
     {{- $value }}
 {{- end }}
 {{- end -}}
+
+{{/*
+Compute a combined checksum from a list of template files.
+Usage: {{ include "yourchart.checksum" . }}
+*/}}
+{{- define "yourchart.checksum" -}}
+{{- $files := .checksumLabelFiles }}
+{{- $combined := "" -}}
+{{- range $file := $files }}
+{{- $combined = printf "%s%s" $combined (include (print $.Template.BasePath "/" $file) .) }}
+{{- end }}
+{{- $combined | sha256sum | trunc 63 }}
+{{- end }}
