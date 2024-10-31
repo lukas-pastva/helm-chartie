@@ -1,5 +1,3 @@
-# templates/deployment.yaml
-
 {{- range $item_name, $item := .Values.deployments }}
 ---
 apiVersion: apps/v1
@@ -197,7 +195,7 @@ spec:
           hostPath:
             path: {{ $itemVolumes.hostPath | quote }}
           {{- end }}
-          {{- if (and (listContains "rook-cephfs" "csi-s3" "iscsi" "rook-ceph-block" "longhorn" "pvc" "truenas-nfs" "openebs-device" "openebs-hostpath" $itemVolumes.type)) }}
+          {{- if (and (include "listContains" (dict "value" $itemVolumes.type "list" (list "rook-cephfs" "csi-s3" "iscsi" "rook-ceph-block" "longhorn" "pvc" "truenas-nfs" "openebs-device" "openebs-hostpath"))) ) }}
           persistentVolumeClaim:
             claimName: {{ $itemVolumes.name }}
             readOnly: {{ $itemVolumes.readOnly | default false }}
