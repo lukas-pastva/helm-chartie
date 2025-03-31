@@ -52,6 +52,50 @@ spec:
               {{- end }}
       {{- end }}
       serviceAccountName: {{- if $item.serviceAccountExternal }} {{ $item.serviceAccountExternal }}{{ else }}{{- if $item.serviceAccountName }} {{ $item.serviceAccountName }}{{ else }} {{ $item_name }}{{- end }}{{- end }}
+      {{- if $item.initContainers }}
+      initContainers:
+      {{- range $init := $item.initContainers }}
+        - name: {{ $init.name }}
+          image: {{ $init.image }}
+          {{- if $init.command }}
+          command:
+          {{- range $cmd := $init.command }}
+            - {{ $cmd | quote }}
+          {{- end }}
+          {{- end }}
+
+          {{- if $init.args }}
+          args:
+          {{- range $arg := $init.args }}
+            - {{ $arg | quote }}
+          {{- end }}
+          {{- end }}
+
+          {{- if $init.env }}
+          env:
+          {{- range $env := $init.env }}
+            - name: {{ $env.name }}
+              value: {{ $env.value | quote }}
+          {{- end }}
+          {{- end }}
+
+          {{- if $init.volumeMounts }}
+          volumeMounts:
+          {{- range $vm := $init.volumeMounts }}
+            - name: {{ $vm.name }}
+              mountPath: {{ $vm.mountPath | quote }}
+              {{- if $vm.readOnly }}
+              readOnly: {{ $vm.readOnly }}
+              {{- end }}
+          {{- end }}
+          {{- end }}
+
+          {{- if $init.resources }}
+          resources:
+            {{- $init.resources | toYaml | nindent 12 }}
+          {{- end }}
+      {{- end }}
+      {{- end }}
       containers:
         - name: {{ $item_name }}
           image: "{{ $item.image }}"
