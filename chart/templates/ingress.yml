@@ -20,12 +20,12 @@ metadata:
       {{- if $itemPorts.annotations }}{{- $itemPorts.annotations | toYaml | nindent 4 }}{{- end }}
 spec:
   ingressClassName: {{ default "nginx" $itemPorts.ingressClassName }}
-  {{- if $itemPorts.tls }}
+      {{- if $itemPorts.tls }}
   tls:
 {{ $itemPorts.tls | toYaml | indent 4 }}
-  {{- end }}
+      {{- end }}
   rules:
-    {{- range $indexDomain, $domain := $itemPorts.domains }}
+      {{- range $indexDomain, $domain := $itemPorts.domains }}
     - host: {{ $domain }}
       http:
         paths:
@@ -34,12 +34,12 @@ spec:
               service:
                 name: {{ $item_name }}
                 port:
-                  number: {{- if $itemPorts.portIngress }}{{ $itemPorts.portIngress }}{{ else }}{{ $itemPorts.port }}{{- end }}
+                  number: {{- if $itemPorts.portIngress }} {{ $itemPorts.portIngress }}{{ else }} {{ $itemPorts.port }}{{- end }} 
             path: {{ $path }}
             pathType: Prefix
         {{- end }}
-    {{- end }}
-    {{- if $itemPorts.auth }}
+      {{- end }}
+      {{- if $itemPorts.auth }}
 ---
 apiVersion: v1
 kind: Secret
@@ -48,7 +48,7 @@ metadata:
   namespace: {{ $.Release.Namespace }}
 data:
   auth: {{ $itemPorts.auth }}
-    {{- end }}
+      {{- end }}
     {{- end }}
   {{- end }}
 {{- end }}
