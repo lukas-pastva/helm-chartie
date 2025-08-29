@@ -258,4 +258,10 @@ spec:
       imagePullSecrets:
         - name: {{ $.Values.secretRegistry }}
     {{- end }}
+    {{- if $.Values.secretRegistries }}
+      imagePullSecrets:
+      {{- range $secretRegistry := $.Values.secretRegistries }}
+        - name: {{ $secretRegistry }}
+      {{- end }}
+    {{- end }}
 {{- end }}
