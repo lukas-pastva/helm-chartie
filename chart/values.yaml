@@ -54,3 +54,4 @@ deployments: {}
 #      key2: value2
 
 extraObjects: []
+automationDeploymentEnabled: false
