@@ -1,6 +1,29 @@
+{{- $storageClassMap := dict
+    "openebs-hostpath" "openebs-hostpath"
+    "openebs-device" "openebs-device"
+    "iscsi" "sys-truenas-iscsi"
+    "truenas-nfs" "sys-truenas-nfs"
+    "vultr-hdd-retain" "vultr-block-storage-hdd-retain"
+    "vultr-hdd" "vultr-block-storage-hdd"
+    "vultr" "vultr-block-storage"
+    "rook-ceph-block" "rook-ceph-block"
+    "csi-s3" "csi-s3"
+    "longhorn" "longhorn"
+}}
 {{- range $item_name, $item := .Values.deployments }}
 {{- range $itemVolumes := $item.volumes }}
-{{- if or (eq $itemVolumes.type "openebs-hostpath") (eq $itemVolumes.type "openebs-device") (eq $itemVolumes.type "iscsi") (eq $itemVolumes.type "truenas-nfs") (eq $itemVolumes.type "vultr-hdd-retain") (eq $itemVolumes.type "vultr-hdd") (eq $itemVolumes.type "vultr") (eq $itemVolumes.type "rook-ceph-block") (eq $itemVolumes.type "csi-s3") (eq $itemVolumes.type "longhorn") }}
+{{- $volumeType := default "" $itemVolumes.type }}
+{{- $hasKnownType := hasKey $storageClassMap $volumeType -}}
+{{- $storageClass := "csi-s3" -}}
+{{- if $hasKnownType -}}
+  {{- $storageClass = index $storageClassMap $volumeType -}}
+{{- end -}}
+{{- $annotation := "" -}}
+{{- if $hasKnownType -}}
+  {{- $annotation = $storageClass -}}
+{{- end -}}
+{{- $requiresFinalizer := or (eq $volumeType "rook-ceph-block") (eq $volumeType "longhorn") -}}
+{{- if $hasKnownType }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -9,14 +32,16 @@ metadata:
   namespace: {{ $.Release.Namespace }}
   labels:
     app.kubernetes.io/name: {{ $itemVolumes.name }}
+  {{- if $annotation }}
   annotations:
-    volume.beta.kubernetes.io/storage-class: {{ if eq $itemVolumes.type "openebs-hostpath" }}"openebs-hostpath"{{ else if eq $itemVolumes.type "openebs-device" }}"openebs-device"{{ else if eq $itemVolumes.type "iscsi" }}"sys-truenas-iscsi"{{ else if eq $itemVolumes.type "truenas-nfs" }}"sys-truenas-nfs"{{ else if eq $itemVolumes.type "vultr-hdd-retain" }}"vultr-block-storage-hdd-retain"{{ else if eq $itemVolumes.type "vultr-hdd" }}"vultr-block-storage-hdd"{{ else if eq $itemVolumes.type "vultr" }}"vultr-block-storage"{{ else if eq $itemVolumes.type "rook-ceph-block" }}"rook-ceph-block"{{ else if eq $itemVolumes.type "csi-s3" }}"csi-s3"{{ else if eq $itemVolumes.type "longhorn" }}"longhorn"{{ end }}
-  {{ if or (eq $itemVolumes.type "rook-ceph-block") (eq $itemVolumes.type "longhorn") }}
+    volume.beta.kubernetes.io/storage-class: "{{ $annotation }}"
+  {{- end }}
+  {{- if $requiresFinalizer }}
   finalizers:
     - kubernetes.io/pvc-protection
-  {{ end }}
+  {{- end }}
 spec:
-  storageClassName: {{ if eq $itemVolumes.type "iscsi" }}sys-truenas-iscsi{{ else if eq $itemVolumes.type "truenas-nfs" }}sys-truenas-nfs{{ else if eq $itemVolumes.type "vultr-hdd-retain" }}vultr-block-storage-hdd-retain{{ else if eq $itemVolumes.type "vultr-hdd" }}vultr-block-storage-hdd{{ else if eq $itemVolumes.type "vultr" }}vultr-block-storage{{ else if eq $itemVolumes.type "rook-ceph-block" }}rook-ceph-block{{ else if eq $itemVolumes.type "csi-s3" }}csi-s3{{ else if eq $itemVolumes.type "longhorn" }}longhorn{{ else }}csi-s3{{ end }}
+  storageClassName: {{ $storageClass }}
   accessModes:
     - ReadWriteOnce
   resources:
